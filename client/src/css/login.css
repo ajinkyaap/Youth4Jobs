@@ -1,0 +1,113 @@
+body {
+  padding: 0;
+  margin: 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: 'Arial', sans-serif;
+}
+
+.vid-container {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  border: 2px solid black;
+}
+
+.bgvid.back {
+  position: fixed; 
+  right: 0; 
+  bottom: 0;
+  min-width: 100%; 
+  min-height: 100%;
+  width: auto; 
+  height: auto; 
+  z-index: -100;
+}
+
+.inner-container {
+  /* border: 1rem solid black; */
+  width: 80%; /* Adjust the width for responsiveness */
+  max-width: 500px; /* Set a maximum width if needed */
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+}
+
+.col-sm {
+  display: block;
+  margin: auto;
+  padding: 10px;
+  background: rgba(255, 253, 253, 0.911);
+  color: black;
+}
+
+.inner-container h1 {
+  color: black;
+  margin: 20px 0;
+  font-size: 24px; /* Adjust the font size for responsiveness */
+  text-align: center;
+}
+
+.inner-container input {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  background: rgba(255, 253, 253, 0.911);
+  color: black;
+  border: 1px solid black;
+  border-radius: 4px;
+}
+
+.inner-container input:focus,
+.inner-container input:active,
+.inner-container button:focus,
+.inner-container button:active {
+  outline: none;
+}
+
+.inner-container button {
+  background: rgb(255, 0, 0);
+  border: 1px solid #000;
+  padding: 10px;
+  font-size: 18px; /* Adjust the font size for responsiveness */
+  width: 100%;
+  cursor: pointer;
+  color: white;
+}
+
+.inner-container button:hover {
+  background: #fff;
+  color: #000;
+}
+
+.inner-container p {
+  font-size: 14px;
+  text-align: center;
+}
+
+.inner-container p span {
+  cursor: pointer;
+  color: #666;
+  text-decoration: underline;
+}
+
+.inner-container hr {
+  margin: 20px 0;
+  border: none;
+  border-top: 1px solid black;
+}
+
+.col-lg {
+  margin-top: 10px;
+  padding: 10px;
+  text-align: center;
+}
+
+@media only screen and (max-width: 768px) {
+  .inner-container {
+      width: 90%;
+  }
+}
