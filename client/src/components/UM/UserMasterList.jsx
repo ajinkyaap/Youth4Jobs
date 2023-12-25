@@ -81,9 +81,9 @@ const UserMasterList = (props) => {
       >
         <thead className =" thead-dark">
           <tr className="bg-primary">
-            <th scope="col">UM SEQ</th>
+            {/* <th scope="col">SEQ</th>
             <th scope="col">Login Id</th>
-            <th scope="col">Password</th>
+            <th scope="col">Password</th> */}
             <th scope="col">Role</th>
             <th scope="col">Name</th>
             <th scope="col">Address</th>
@@ -91,42 +91,40 @@ const UserMasterList = (props) => {
             <th scope="col">Unique ID</th>
             <th scope="col">ID Type</th>
             <th scope="col">Department</th>
-            <th scope="col">Login Sts</th>
+            {/* <th scope="col">Login Sts</th>
             <th scope="col">Created Time</th>
             <th scope="col">last Login</th>
-            <th scope="col">Ln Attempts</th>
+            <th scope="col">Ln Attempts</th> */}
             <th scope="col">Update</th>
             <th scope="col">Delete</th>
 
           </tr>
         </thead>
-        <tbody>
+        <tbody
+        style={{
+          backgroundColor:"skyblue"
+        }}>
           {userMasters &&
             userMasters.map((userMaster) => {
               return (
                 <tr>
+                  {/* <td>{userMaster.um_seq}</td>
+                  <td>{userMaster.um_login_id}</td>
+                  <td>{userMaster.um_password}</td> */}
+                  <td>{userMaster.um_role}</td>
                   <td
                   onClick={() => handleUserMasterSelect(userMaster.um_seq)}
                   key={userMaster.um_seq}
-                  style={{
-                    // position: "absolute"
-                    // marginRi
-                  }}
-                  >{userMaster.um_seq}
-                  </td>
-                  <td>{userMaster.um_login_id}</td>
-                  <td>{userMaster.um_password}</td>
-                  <td>{userMaster.um_role}</td>
-                  <td>{userMaster.um_name}</td>
+                  >{userMaster.um_name}</td>
                   <td>{userMaster.um_address}</td>
                   <td>{userMaster.um_email}</td>
                   <td>{userMaster.um_unique_id}</td>
                   <td>{userMaster.um_id_type}</td>
                   <td>{userMaster.um_dept}</td>
-                  <td>{userMaster.um_login_sts}</td>
+                  {/* <td>{userMaster.um_login_sts}</td>
                   <td>{userMaster.um_created_time}</td>
                   <td>{userMaster.um_last_login}</td>
-                  <td>{userMaster.um_ln_attempts}</td>
+                  <td>{userMaster.um_ln_attempts}</td> */}
                   <td>
                     <button
                       onClick={(e) => handleUpdate(e, userMaster.um_seq)}

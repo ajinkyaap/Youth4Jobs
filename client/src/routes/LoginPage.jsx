@@ -81,23 +81,13 @@ const LoginPage = () => {
       </div>
 
       <div>
-        <button onClick={handleLogin}>Login</button>
-      </div>
-
-      <div className="row">
-        <div className="col-lg">
-          <span>Don't have an account ?</span>
+        <div className="row">
+        <div className="col-sm">
+          <button1 onClick={handleRegister}>Create an Account</button1>
         </div>
-        <div className="col-lg">
-          <span
-            onClick={handleRegister}
-            style={{
-              textDecoration: 'underline',
-              color: 'red',
-            }}
-          >
-            Create an account
-          </span>
+        <div className="col-sm">
+          <button onClick={handleLogin}>Login</button>
+        </div>
         </div>
       </div>
     </div>

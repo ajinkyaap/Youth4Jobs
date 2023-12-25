@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { UserMasterContext } from "../../context/UserMasterContext";
 import BasePath from "../../apis/BasePath";
-import { CustomerContext } from "../../context/CustomerContext";
+import { CandidateContext } from "../../context/CandidateContext";
 import { VolunteerContext } from "../../context/VolunteerContext";
 // import StarRating from "../components/StarRating";
 // import Reviews from "../components/Reviews";
@@ -36,22 +36,22 @@ const UserMasterDetailPage = () => {
     fetchData();
   }, [setVolunteers]);
 
-  //UserCustomerData Fetch
+  //UserCandidateData Fetch
   
   // let history = useHistory();
   // useEffect(() => {
   //   const fetchData1 = async () => {
   //     try {
-  //       const userCustomerDataResponse = await BasePath.get(`/userCustomers/${um_seq}`);
-  //       console.log(userCustomerDataResponse.data.data);
-  //       setCustomers(userCustomerDataResponse.data.data.userCustomerData);
-  //       // console.log(setCustomers);
+  //       const userCandidateDataResponse = await BasePath.get(`/userCandidates/${um_seq}`);
+  //       console.log(userCandidateDataResponse.data.data);
+  //       setCandidates(userCandidateDataResponse.data.data.userCandidateData);
+  //       // console.log(setCandidates);
   //     } catch (err) {}
   //   };
 
   //   fetchData1();
-  // }, [setCustomers]);
-  // console.log("Outside UseEfffect : "+ setCustomers);
+  // }, [setCandidates]);
+  // console.log("Outside UseEfffect : "+ setCandidates);
 
   const handleDelete = async (e, vol_id) => {
     e.stopPropagation();

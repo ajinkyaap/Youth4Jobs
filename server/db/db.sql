@@ -16,7 +16,7 @@ CREATE TABLE user_master (
     
 );
 
-CREATE TABLE IF NOT EXISTS customers(
+CREATE TABLE IF NOT EXISTS candidates(
     customer_id BIGSERIAL NOT NULL PRIMARY KEY,
     sales_rep_emp_num NUMBER,
     cust_first_name VARCHAR(20) NOT NULL,

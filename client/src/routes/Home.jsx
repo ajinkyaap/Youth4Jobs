@@ -1,7 +1,7 @@
 // Home.jsx
 
 import React from "react";
-import UMHeader from "../components/UM/UMHeader";
+import Header from "./Header";
 import BgImage from '../y4j bg.png';
 import '../css/Home.css';
 import { useHistory } from "react-router-dom";
@@ -19,7 +19,7 @@ const Home = () => {
 
   return (
     <>
-      <UMHeader />
+      <Header />
       <div className="container1">
         <img src={BgImage} className="bg-image" alt="Y4jBgImage" />
         <div className="buttons-container">

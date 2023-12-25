@@ -1,14 +1,14 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
-// import { CustomerContext } from "../context/CustomerContext";
+// import { CandidateContext } from "../context/CandidateContext";
 import BasePath from "../../apis/BasePath";
 
-const UpdateCustomer = (props) => {
-  const { customer_id } = useParams();
+const UpdateCandidate = (props) => {
+  const { candidate_id } = useParams();
   let history = useHistory();
   // const { userMasters } = useContext(UserMasterContext);
   // const { addUserMasters } = useContext(UserMasterContext);
-  const [customerId, setCustomerId] = useState(0);
+  const [candidateId, setCandidateId] = useState(0);
   const [sales_rep_emp_num, setSalesRepEmpNum] = useState(0);
   const [cust_first_name, setCustFirstName] = useState("");
   const [cust_last_name, setCustLastName] = useState("");
@@ -36,33 +36,33 @@ const UpdateCustomer = (props) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await BasePath.get(`/customers/${customer_id}`);
+      const response = await BasePath.get(`/candidates/${candidate_id}`);
       console.log(response.data.data);
-      setCustomerId(response.data.data.Customers.customer_id);
-      setSalesRepEmpNum(response.data.data.Customers.sales_rep_emp_num);
-      setCustFirstName(response.data.data.Customers.cust_first_name);
-      setCustLastName(response.data.data.Customers.cust_last_name);
-      setCustMotherName(response.data.data.Customers.cust_mother_name);
-      setCustFatherName(response.data.data.Customers.cust_father_name);
-      setCustSpouseName(response.data.data.Customers.cust_spouse_name);
-      setCustDob(response.data.data.Customers.cust_dob);
-      setCustGender(response.data.data.Customers.cust_gender);
-      setCustMaritialSts(response.data.data.Customers.cust_maritial_sts);
-      setCustPhone(response.data.data.Customers.cust_phone);
-      setCustMobile(response.data.data.Customers.cust_mobile);
-      setCustAltMobile(response.data.data.Customers.cust_alt_mobile);
-      setCustFax(response.data.data.Customers.cust_fax);
-      setCustEmail(response.data.data.Customers.cust_email);
-      setCustIsDisable(response.data.data.Customers.cust_is_disable);
-      setCustEduQualification(response.data.data.Customers.cust_edu_qualification);
-      setCustOccupation(response.data.data.Customers.cust_occupation);
-      setCustPan(response.data.data.Customers.cust_pan);
-      setCustAadhar(response.data.data.Customers.cust_aadhar);
-      setCustPassport(response.data.data.Customers.cust_passport);
-      setCustRegDate(response.data.data.Customers.cust_reg_date);
-      setCustDisability(response.data.data.Customers.cust_disability);
-      setCustTypeDisability(response.data.data.Customers.cust_type_disability);
-      setCustPercentDisability(response.data.data.Customers.cust_percent_disability);      
+      setCandidateId(response.data.data.Candidates.candidate_id);
+      setSalesRepEmpNum(response.data.data.Candidates.sales_rep_emp_num);
+      setCustFirstName(response.data.data.Candidates.cust_first_name);
+      setCustLastName(response.data.data.Candidates.cust_last_name);
+      setCustMotherName(response.data.data.Candidates.cust_mother_name);
+      setCustFatherName(response.data.data.Candidates.cust_father_name);
+      setCustSpouseName(response.data.data.Candidates.cust_spouse_name);
+      setCustDob(response.data.data.Candidates.cust_dob);
+      setCustGender(response.data.data.Candidates.cust_gender);
+      setCustMaritialSts(response.data.data.Candidates.cust_maritial_sts);
+      setCustPhone(response.data.data.Candidates.cust_phone);
+      setCustMobile(response.data.data.Candidates.cust_mobile);
+      setCustAltMobile(response.data.data.Candidates.cust_alt_mobile);
+      setCustFax(response.data.data.Candidates.cust_fax);
+      setCustEmail(response.data.data.Candidates.cust_email);
+      setCustIsDisable(response.data.data.Candidates.cust_is_disable);
+      setCustEduQualification(response.data.data.Candidates.cust_edu_qualification);
+      setCustOccupation(response.data.data.Candidates.cust_occupation);
+      setCustPan(response.data.data.Candidates.cust_pan);
+      setCustAadhar(response.data.data.Candidates.cust_aadhar);
+      setCustPassport(response.data.data.Candidates.cust_passport);
+      setCustRegDate(response.data.data.Candidates.cust_reg_date);
+      setCustDisability(response.data.data.Candidates.cust_disability);
+      setCustTypeDisability(response.data.data.Candidates.cust_type_disability);
+      setCustPercentDisability(response.data.data.Candidates.cust_percent_disability);      
     };
 
     fetchData();
@@ -71,15 +71,15 @@ const UpdateCustomer = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // const updatedUserMaster = 
-    await BasePath.put(`/customers/${customer_id}`, {
-      customer_id, sales_rep_emp_num, cust_first_name, cust_last_name,
+    await BasePath.put(`/candidates/${candidate_id}`, {
+      candidate_id, sales_rep_emp_num, cust_first_name, cust_last_name,
       cust_father_name, cust_mother_name, cust_spouse_name, cust_dob,
       cust_gender, cust_maritial_sts, cust_phone, cust_mobile, cust_alt_mobile,
       cust_fax, cust_email, cust_is_disable, cust_edu_qualification, cust_occupation,
       cust_pan, cust_aadhar, cust_passport, cust_reg_date, cust_disability,
       cust_type_disability, cust_percent_disability
     });
-    history.push("/customers");
+    history.push("/candidates");
   };
 
   return (
@@ -132,11 +132,11 @@ const UpdateCustomer = (props) => {
         <div className="form-row">
           <div className="col">
             <input
-              value={customer_id}
-              onChange={(e) => setCustomerId(e.target.value)}
+              value={candidate_id}
+              onChange={(e) => setCandidateId(e.target.value)}
               type="number"
               className="form-control"
-              placeholder="Customer ID"
+              placeholder="Candidate ID"
             />
           </div>
           <div className="col">
@@ -387,7 +387,7 @@ const UpdateCustomer = (props) => {
             className="btn btn-primary"
             
           >
-            Update Customer
+            Update Candidate
           </button>
           </div>
         </div>
@@ -397,4 +397,4 @@ const UpdateCustomer = (props) => {
   );
 };
 
-export default UpdateCustomer;
+export default UpdateCandidate;

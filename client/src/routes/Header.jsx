@@ -1,8 +1,9 @@
 import React from "react";
-import y4jIcon from "../../Y4jIcon.jpg";
+import y4jIcon from "../Y4jIcon.jpg";
 import { useHistory, Link } from "react-router-dom";
+import "../css/App.css"
 
-const UMHeader = () => {
+const Header = () => {
   let history = useHistory();
 
   const handleHomeClick = () => {
@@ -12,7 +13,7 @@ const UMHeader = () => {
   return (
     <>
       <nav
-        className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"
+        className="navbar navbar-expand-lg fixed-top"
         style={{ padding: "10px" }}
       >
         <img
@@ -66,7 +67,11 @@ const UMHeader = () => {
               aria-label="Search"
             />
             <button
-              className="btn btn-outline-danger my-2 my-sm-0"
+              className="btn btn-outline-primary my-2 my-sm-0"
+              style={{
+                backgroundColor: "dark blue",
+                color: "white"
+              }}
               type="submit"
             >
               Search
@@ -75,7 +80,7 @@ const UMHeader = () => {
         </div>
       </nav>
       <footer
-        className="footer mt-auto py-3 bg-dark fixed-bottom"
+        className="navbar mt-auto py-3 fixed-bottom"
         style={{
           position: "flex",
           bottom: "0",
@@ -96,4 +101,4 @@ const UMHeader = () => {
   );
 };
 
-export default UMHeader;
+export default Header;

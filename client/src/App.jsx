@@ -6,12 +6,12 @@ import UserMasterDetailPage from "./components/UM/UserMasterDetailPage";
 import { UserMasterContextProvider } from "./context/UserMasterContext";
 import AddUserMaster from "./components/UM/AddUserMaster";
 import UserMasterList from "./components/UM/UserMasterList";
-import { CustomerContextProvider } from "./context/CustomerContext";
-import AddCustomer from "./components/Customers/AddCustomers";
-import UpdateCustomer from "./components/Customers/UpdateCustomer";
-import CustomerDetailPage from "./components/Customers/CustomerDetailPage";
-import UMHeader from "./components/UM/UMHeader";
-import CustomerList from "./components/Customers/CustomerList";
+import { CandidateContextProvider } from "./context/CandidateContext";
+import AddCandidate from "./components/Candidates/AddCandidate";
+import UpdateCandidate from "./components/Candidates/UpdateCandidate";
+import CandidateDetailPage from "./components/Candidates/CandidateDetailPage";
+import Header from "./routes/Header"
+import CandidateList from "./components/Candidates/CandidateList";
 import './css/App.css';
 import LoginPage from "./routes/LoginPage";
 import RegisterForm from "./routes/RegisterForm";
@@ -23,11 +23,11 @@ import VolunteerDetailPage from "./components/Volunteers/VolunteerDetailPage";
 const App = () => {
   return (
     <>
-    <UMHeader/>
+    <Header/>
     <div className="content">
     <UserMasterContextProvider>
     <VolunteerContextProvider>
-    <CustomerContextProvider>
+    <CandidateContextProvider>
       <div className="container">
         <Router>
           <Switch>
@@ -57,27 +57,27 @@ const App = () => {
               component={UpdateVolunteer}
             />
             <Route exact path="/volunteers/:vol_id">
-              <AddCustomer/>
+              <AddCandidate/>
               <VolunteerDetailPage/>
             </Route>
 
-          <Route exact path="/customers" >
-            <CustomerList/>
+          <Route exact path="/candidates" >
+            <CandidateList/>
           </Route>
           <Route
             exact
-            path="/customers/:customer_id/update"
-            component={UpdateCustomer}
+            path="/candidates/:candidate_id/update"
+            component={UpdateCandidate}
           />
           <Route
             exact
-            path="/customers/:customer_id"
-            component={CustomerDetailPage}
+            path="/candidates/:candidate_id"
+            component={CandidateDetailPage}
           />
         </Switch>
       </Router>
       </div>
-  </CustomerContextProvider>
+  </CandidateContextProvider>
   </VolunteerContextProvider>
   </UserMasterContextProvider>
   </div>

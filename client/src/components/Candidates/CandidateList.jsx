@@ -1,34 +1,34 @@
 import React, { useEffect, useContext } from "react";
 import BasePath from "../../apis/BasePath";
 import { useHistory } from "react-router-dom";
-import { CustomerContext } from "../../context/CustomerContext";
+import { CandidateContext } from "../../context/CandidateContext";
 // import StarRating from "./StarRating";
 
-const CustomerList = (props) => {
-  const { customers, setCustomers } = useContext(CustomerContext);
+const CandidateList = (props) => {
+  const { candidates, setCandidates } = useContext(CandidateContext);
   let history = useHistory();
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await BasePath.get("/customers");
+        const response = await BasePath.get("/candidates");
         console.log(response.data.data);
-        setCustomers(response.data.data.Customers);
-        // console.log(setCustomers);
+        setCandidates(response.data.data.Candidates);
+        // console.log(setCandidates);
       } catch (err) {}
     };
 
     fetchData();
-  }, [setCustomers]);
-  // console.log("Outside UseEfffect : "+ setCustomers);
+  }, [setCandidates]);
+  // console.log("Outside UseEfffect : "+ setCandidates);
 
-  const handleDelete = async (e, customer_id) => {
+  const handleDelete = async (e, candidate_id) => {
     e.stopPropagation();
     try {
       // const response = 
-      await BasePath.delete(`/customers/${customer_id}`);
-      setCustomers(
-        customers.filter((customer) => {
-          return customer.customer_id !== customer_id;
+      await BasePath.delete(`/candidates/${candidate_id}`);
+      setCandidates(
+        candidates.filter((candidate) => {
+          return candidate.candidate_id !== candidate_id;
         })
       );
     } catch (err) {
@@ -36,13 +36,13 @@ const CustomerList = (props) => {
     }
   };
 
-  const handleUpdate = (e, customer_id) => {
+  const handleUpdate = (e, candidate_id) => {
     e.stopPropagation();
-    history.push(`/customers/${customer_id}/update`);
+    history.push(`/candidates/${candidate_id}/update`);
   };
 
-  const handleCustomerSelect = (customer_id) => {
-    history.push(`/customers/${customer_id}`);
+  const handleCandidateSelect = (candidate_id) => {
+    history.push(`/candidates/${candidate_id}`);
   };
 
   // const renderRating = (userMaster) => {
@@ -76,7 +76,7 @@ const CustomerList = (props) => {
           fontSize: "11px"
 
           }}>
-            <th scope="col">Customer ID</th>
+            <th scope="col">Candidate ID</th>
             <th scope="col">Sales Rep Emp No</th>
             <th scope="col">First Name</th>
             <th scope="col">Last Name</th>
@@ -106,47 +106,47 @@ const CustomerList = (props) => {
           </tr>
         </thead>
         <tbody>
-          {customers &&
-            customers.map((customer) => {
+          {candidates &&
+            candidates.map((candidate) => {
               return (
                 <tr>
                   <td
-                  onClick={() => handleCustomerSelect(customer.customer_id)}
-                  // key={customer.customer_id}
+                  onClick={() => handleCandidateSelect(candidate.candidate_id)}
+                  // key={candidate.candidate_id}
                   style={{
                     // position: "absolute"
                     // marginRi
                   }}
-                  >{customer.customer_id}
+                  >{candidate.candidate_id}
                   </td>
-                  <td>{customer.sales_rep_emp_num}</td>
-                  <td>{customer.cust_first_name}</td>
-                  <td>{customer.cust_last_name}</td>
-                  <td>{customer.cust_mother_name}</td>
-                  <td>{customer.cust_father_name}</td>
-                  <td>{customer.cust_spouse_name}</td>
-                  <td>{customer.cust_dob}</td>
-                  <td>{customer.cust_gender}</td>
-                  <td>{customer.cust_maritial_sts}</td>
-                  <td>{customer.cust_phone}</td>
-                  <td>{customer.cust_mobile}</td>
-                  <td>{customer.cust_alt_mobile}</td>
-                  <td>{customer.cust_fax}</td>
-                  <td>{customer.cust_email}</td>
-                  <td>{customer.cust_is_disable}</td>
-                  <td>{customer.cust_edu_qualification}</td>
-                  <td>{customer.cust_occupation}</td>
-                  <td>{customer.cust_pan}</td>
-                  <td>{customer.cust_aadhar}</td>
-                  <td>{customer.cust_passport}</td>
-                  <td>{customer.cust_reg_date}</td>
-                  <td>{customer.cust_disability}</td>
-                  <td>{customer.cust_type_disability}</td>
-                  <td>{customer.cust_percent_disability}</td>
+                  <td>{candidate.sales_rep_emp_num}</td>
+                  <td>{candidate.cust_first_name}</td>
+                  <td>{candidate.cust_last_name}</td>
+                  <td>{candidate.cust_mother_name}</td>
+                  <td>{candidate.cust_father_name}</td>
+                  <td>{candidate.cust_spouse_name}</td>
+                  <td>{candidate.cust_dob}</td>
+                  <td>{candidate.cust_gender}</td>
+                  <td>{candidate.cust_maritial_sts}</td>
+                  <td>{candidate.cust_phone}</td>
+                  <td>{candidate.cust_mobile}</td>
+                  <td>{candidate.cust_alt_mobile}</td>
+                  <td>{candidate.cust_fax}</td>
+                  <td>{candidate.cust_email}</td>
+                  <td>{candidate.cust_is_disable}</td>
+                  <td>{candidate.cust_edu_qualification}</td>
+                  <td>{candidate.cust_occupation}</td>
+                  <td>{candidate.cust_pan}</td>
+                  <td>{candidate.cust_aadhar}</td>
+                  <td>{candidate.cust_passport}</td>
+                  <td>{candidate.cust_reg_date}</td>
+                  <td>{candidate.cust_disability}</td>
+                  <td>{candidate.cust_type_disability}</td>
+                  <td>{candidate.cust_percent_disability}</td>
                   
                   <td>
                     <button
-                      onClick={(e) => handleUpdate(e, customer.customer_id)}
+                      onClick={(e) => handleUpdate(e, candidate.candidate_id)}
                       className="btn btn-warning"
                     >
                       Update
@@ -154,7 +154,7 @@ const CustomerList = (props) => {
                   </td>
                   <td>
                     <button
-                      onClick={(e) => handleDelete(e, customer.customer_id)}
+                      onClick={(e) => handleDelete(e, candidate.candidate_id)}
                       className="btn btn-danger"
                     >
                       Delete
@@ -195,4 +195,4 @@ const CustomerList = (props) => {
   );
 };
 
-export default CustomerList;
+export default CandidateList;

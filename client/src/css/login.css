@@ -69,18 +69,36 @@ body {
 }
 
 .inner-container button {
-  background: rgb(255, 0, 0);
-  border: 1px solid #000;
+  background: #1f3a4e;
+  border: 1px;
+  border-radius: 5px;
   padding: 10px;
   font-size: 18px; /* Adjust the font size for responsiveness */
   width: 100%;
   cursor: pointer;
   color: white;
 }
+.inner-container button1 {
+  background: white;
+  margin: auto;
+  border: 1px;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 18px; /* Adjust the font size for responsiveness */
+  width: 100%;
+  cursor: pointer;
+  color: #1f3a4e;
+  border: 0.125rem solid #1f3a4e;
+  margin-left: 7px;
+}
 
 .inner-container button:hover {
-  background: #fff;
-  color: #000;
+  background: rgb(26, 102, 133);
+  color: white;
+}
+.inner-container button1:hover {
+  background: rgb(26, 102, 133);
+  color: white;
 }
 
 .inner-container p {

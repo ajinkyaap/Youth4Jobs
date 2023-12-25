@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { VolunteerContext } from "../../context/VolunteerContext";
 import BasePath from "../../apis/BasePath";
-import { CustomerContext } from "../../context/CustomerContext";
+import { CandidateContext } from "../../context/CandidateContext";
 // import StarRating from "../components/StarRating";
 // import Reviews from "../ components/Reviews";
 // import AddReview from "../components/AddReview";
@@ -14,7 +14,7 @@ const VolunteerDetailPage = () => {
     VolunteerContext
   );
   let history = useHistory();
-  const { customers, setCustomers } = useContext(CustomerContext);
+  const { candidates, setCandidates } = useContext(CandidateContext);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,9 +24,9 @@ const VolunteerDetailPage = () => {
         console.log("User Details " +response);
 
 
-        const userCustomerDataResponse = await BasePath.get(`/userCustomers/${vol_id}`);
-        setCustomers(userCustomerDataResponse.data.data.userCustomerData);
-        console.log("User Volunteer Data " + userCustomerDataResponse.data.data);
+        const userCandidateDataResponse = await BasePath.get(`/userCandidates/${vol_id}`);
+        setCandidates(userCandidateDataResponse.data.data.userCandidateData);
+        console.log("User Volunteer Data " + userCandidateDataResponse.data.data);
 
       } catch (err) {
         console.log(err);
@@ -34,33 +34,33 @@ const VolunteerDetailPage = () => {
     };
 
     fetchData();
-  }, [setCustomers]);
+  }, [setCandidates]);
 
-  //UserCustomerData Fetch
+  //UserCandidateData Fetch
   
   // let history = useHistory();
   // useEffect(() => {
   //   const fetchData1 = async () => {
   //     try {
-  //       const userCustomerDataResponse = await BasePath.get(`/userCustomers/${um_seq}`);
-  //       console.log(userCustomerDataResponse.data.data);
-  //       setCustomers(userCustomerDataResponse.data.data.userCustomerData);
-  //       // console.log(setCustomers);
+  //       const userCandidateDataResponse = await BasePath.get(`/userCandidates/${um_seq}`);
+  //       console.log(userCandidateDataResponse.data.data);
+  //       setCandidates(userCandidateDataResponse.data.data.userCandidateData);
+  //       // console.log(setCandidates);
   //     } catch (err) {}
   //   };
 
   //   fetchData1();
-  // }, [setCustomers]);
-  // console.log("Outside UseEfffect : "+ setCustomers);
+  // }, [setCandidates]);
+  // console.log("Outside UseEfffect : "+ setCandidates);
 
-  const handleDelete = async (e, customer_id) => {
+  const handleDelete = async (e, candidate_id) => {
     e.stopPropagation();
     try {
       // const response = 
-      await BasePath.delete(`/customers/${customer_id}`);
-      setCustomers(
-        customers.filter((customer) => {
-          return customer.customer_id !== customer_id;
+      await BasePath.delete(`/candidates/${candidate_id}`);
+      setCandidates(
+        candidates.filter((candidate) => {
+          return candidate.candidate_id !== candidate_id;
         })
       );
     } catch (err) {
@@ -68,13 +68,13 @@ const VolunteerDetailPage = () => {
     }
   };
 
-  const handleUpdate = (e, customer_id) => {
+  const handleUpdate = (e, candidate_id) => {
     e.stopPropagation();
-    history.push(`/customers/${customer_id}/update`);
+    history.push(`/candidates/${candidate_id}/update`);
   };
 
-  const handleCustomerSelect = (customer_id) => {
-    history.push(`/customers/${customer_id}`);
+  const handleCandidateSelect = (candidate_id) => {
+    history.push(`/candidates/${candidate_id}`);
   };
 
   return (
@@ -167,7 +167,7 @@ const VolunteerDetailPage = () => {
           </div>
           
 
-          {/* User's Customer Data */}
+          {/* User's Candidate Data */}
           <h4>
           {selectedVolunteer.Volunteers.um_name}'s Candidate Data
           </h4>
@@ -209,42 +209,42 @@ const VolunteerDetailPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {customers &&
-                  customers.map((customer) => {
+                {candidates &&
+                  candidates.map((candidate) => {
                     return (
                       <tr
-                        onClick={() => handleCustomerSelect(customer.customer_id)}
-                          key={customer.customer_id}
+                        onClick={() => handleCandidateSelect(candidate.candidate_id)}
+                          key={candidate.candidate_id}
                       >
-                        <td>{customer.customer_id}</td>
-                        <td>{customer.sales_rep_emp_num}</td>
-                        <td>{customer.cust_first_name}</td>
-                        <td>{customer.cust_last_name}</td>
-                        <td>{customer.cust_mother_name}</td>
-                        <td>{customer.cust_father_name}</td>
-                        <td>{customer.cust_spouse_name}</td>
-                        <td>{customer.cust_dob}</td>
-                        <td>{customer.cust_gender}</td>
-                        <td>{customer.cust_maritial_sts}</td>
-                        <td>{customer.cust_phone}</td>
-                        <td>{customer.cust_mobile}</td>
-                        <td>{customer.cust_alt_mobile}</td>
-                        <td>{customer.cust_fax}</td>
-                        <td>{customer.cust_email}</td>
-                        <td>{customer.cust_is_disable}</td>
-                        <td>{customer.cust_edu_qualification}</td>
-                        <td>{customer.cust_occupation}</td>
-                        <td>{customer.cust_pan}</td>
-                        <td>{customer.cust_aadhar}</td>
-                        <td>{customer.cust_passport}</td>
-                        <td>{customer.cust_reg_date}</td>
-                        <td>{customer.cust_disability}</td>
-                        <td>{customer.cust_type_disability}</td>
-                        <td>{customer.cust_percent_disability}</td>
+                        <td>{candidate.candidate_id}</td>
+                        <td>{candidate.sales_rep_emp_num}</td>
+                        <td>{candidate.cust_first_name}</td>
+                        <td>{candidate.cust_last_name}</td>
+                        <td>{candidate.cust_mother_name}</td>
+                        <td>{candidate.cust_father_name}</td>
+                        <td>{candidate.cust_spouse_name}</td>
+                        <td>{candidate.cust_dob}</td>
+                        <td>{candidate.cust_gender}</td>
+                        <td>{candidate.cust_maritial_sts}</td>
+                        <td>{candidate.cust_phone}</td>
+                        <td>{candidate.cust_mobile}</td>
+                        <td>{candidate.cust_alt_mobile}</td>
+                        <td>{candidate.cust_fax}</td>
+                        <td>{candidate.cust_email}</td>
+                        <td>{candidate.cust_is_disable}</td>
+                        <td>{candidate.cust_edu_qualification}</td>
+                        <td>{candidate.cust_occupation}</td>
+                        <td>{candidate.cust_pan}</td>
+                        <td>{candidate.cust_aadhar}</td>
+                        <td>{candidate.cust_passport}</td>
+                        <td>{candidate.cust_reg_date}</td>
+                        <td>{candidate.cust_disability}</td>
+                        <td>{candidate.cust_type_disability}</td>
+                        <td>{candidate.cust_percent_disability}</td>
                         
                         <td>
                           <button
-                            onClick={(e) => handleUpdate(e, customer.customer_id)}
+                            onClick={(e) => handleUpdate(e, candidate.candidate_id)}
                             className="btn btn-warning"
                           >
                             Update
@@ -252,7 +252,7 @@ const VolunteerDetailPage = () => {
                         </td>
                         <td>
                           <button
-                            onClick={(e) => handleDelete(e, customer.customer_id)}
+                            onClick={(e) => handleDelete(e, candidate.candidate_id)}
                             className="btn btn-danger"
                           >
                             Delete
