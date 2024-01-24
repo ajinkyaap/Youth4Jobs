@@ -39,7 +39,7 @@ const AddUserMaster = () => {
         um_last_login,
         um_ln_attempts
       });
-      console.log(response.data.data);
+      // console.log(response.data.data);
       addUserMasters(response.data.data.User_Masters);
       alert('User Added');
     } catch (err) {

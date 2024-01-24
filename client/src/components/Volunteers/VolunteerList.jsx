@@ -2,30 +2,16 @@ import React, { useEffect, useContext } from "react";
 import BasePath from "../../apis/BasePath";
 import { UserMasterContext } from "../../context/UserMasterContext";
 import { useHistory } from "react-router-dom";
-import $ from 'jquery';
 import { VolunteerContext } from "../../context/VolunteerContext";
-// import StarRating from "./StarRating";
-
-// $(document).ready(function () {
-//   //Pagination numbers
-//   $('#UserMastersTable').DataTable({
-//     "pagingType": "numbers"
-//   });
-// });
-// $(function () {
-//   $('#UserMastersTable').DataTable();
-//   $('.dataTables_length').addClass('bs-select');
-// });
-
 
 const VolunteerList = (props) => {
   const { volunteers, setVolunteers } = useContext(VolunteerContext);
+  
   let history = useHistory();
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await BasePath.get("/userMasters/volunteer");
-        console.log(response.data.data);
+        const response = await BasePath.get("/volunteers");
         setVolunteers(response.data.data.Volunteers);
       } catch (err) {}
     };
@@ -36,7 +22,6 @@ const VolunteerList = (props) => {
   const handleDelete = async (e, vol_id) => {
     e.stopPropagation();
     try {
-      // const response = 
       await BasePath.delete(`/volunteer/${vol_id}`);
       setVolunteers(
         volunteers.filter((volunteer) => {
@@ -56,18 +41,6 @@ const VolunteerList = (props) => {
   const handleVolunteerSelect = (vol_id) => {
     history.push(`/volunteers/${vol_id}`);
   };
-
-  // const renderRating = (userMaster) => {
-  //   if (!restaurant.count) {
-  //     return <span className="text-warning">0 reviews</span>;
-  //   }
-  //   return (
-  //     <>
-  //       <StarRating rating={restaurant.id} />
-  //       <span className="text-warning ml-1">({restaurant.count})</span>
-  //     </>
-  //   );
-  // };
 
   return (
     <>
@@ -97,8 +70,8 @@ const VolunteerList = (props) => {
             <th scope="col">Created Time</th>
             <th scope="col">last Login</th>
             <th scope="col">Ln Attempts</th>
-            <th scope="col">Update</th>
-            <th scope="col">Delete</th>
+            {/* <th scope="col">Update</th>
+            <th scope="col">Delete</th> */}
 
           </tr>
         </thead>
@@ -109,12 +82,7 @@ const VolunteerList = (props) => {
                 <tr>
                   <td
                   onClick={() => handleVolunteerSelect(volunteers.vol_id)}
-                  key={volunteer.vol_id}
-                  style={{
-                    // position: "absolute"
-                    // marginRi
-                  }}
-                  >{volunteer.vol_id}
+                  key={volunteer.vol_id}>{volunteer.vol_id}
                   </td>
                   <td>{volunteer.um_seq}</td>
                   <td>{volunteer.um_login_id}</td>
@@ -130,7 +98,7 @@ const VolunteerList = (props) => {
                   <td>{volunteer.um_created_time}</td>
                   <td>{volunteer.um_last_login}</td>
                   <td>{volunteer.um_ln_attempts}</td>
-                  <td>
+                  {/* <td>
                     <button
                       onClick={(e) => handleUpdate(e, volunteer.vol_id)}
                       className="btn btn-warning"
@@ -145,35 +113,10 @@ const VolunteerList = (props) => {
                     >
                       Delete
                     </button>
-                  </td>
+                  </td> */}
                 </tr>
               );
             })}
-          {/* <tr>
-            <td>mcdonalds</td>
-            <td>New YOrk</td>
-            <td>$$</td>
-            <td>Rating</td>
-            <td>
-              <button className="btn btn-warning">Update</button>
-            </td>
-            <td>
-              <button className="btn btn-danger">Delete</button>
-            </td>
-          </tr>
-
-          <tr>
-            <td>mcdonalds</td>
-            <td>New YOrk</td>
-            <td>$$</td>
-            <td>Rating</td>
-            <td>
-              <button className="btn btn-warning">Update</button>
-            </td>
-            <td>
-              <button className="btn btn-danger">Delete</button>
-            </td>
-          </tr> */}
         </tbody>
       </table>
     </div>

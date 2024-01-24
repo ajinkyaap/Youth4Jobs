@@ -20,10 +20,12 @@ import AddVolunteer from "./components/Volunteers/AddVolunteer";
 import VolunteerList from "./components/Volunteers/VolunteerList";
 import UpdateVolunteer from "./components/Volunteers/UpdateVolunteer";
 import VolunteerDetailPage from "./components/Volunteers/VolunteerDetailPage";
+// import 'bootstrap/dist/css/bootstrap.min.css';
+
+
 const App = () => {
   return (
     <>
-    <Header/>
     <div className="content">
     <UserMasterContextProvider>
     <VolunteerContextProvider>
@@ -38,14 +40,14 @@ const App = () => {
 
             {/* User Master Routes */}
             <Route exact path="/userMasters" >
-                <AddUserMaster/>
+                {/* <AddUserMaster/> */}
                 <UserMasterList/>
             </Route>
             <Route exact path="/userMasters/:um_seq/update"
               component={UpdateUMPage}
             />
             <Route exact path="/userMasters/:um_seq">
-            <AddVolunteer/>
+            {/* <AddVolunteer/> */}
             <UserMasterDetailPage/>
             </Route>
 
@@ -57,8 +59,10 @@ const App = () => {
               component={UpdateVolunteer}
             />
             <Route exact path="/volunteers/:vol_id">
-              <AddCandidate/>
               <VolunteerDetailPage/>
+            </Route>
+            <Route exact path="/volunteers/:vol_id/addCandidate">
+              <AddCandidate/>
             </Route>
 
           <Route exact path="/candidates" >

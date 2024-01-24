@@ -26,7 +26,7 @@ const UpdateUserMaster = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await BasePath.get(`/userMasters/${um_seq}`);
-      console.log(response.data.data);
+      // console.log(response.data.data);
       setUmSeq(response.data.data.User_Masters.um_seq);
       setUmLoginId(response.data.data.User_Masters.um_login_id);
       setUmPassword(response.data.data.User_Masters.um_password);

@@ -14,7 +14,7 @@ const Home = () => {
   }
 
   const handleCustRoute = () => {
-    history.push("/customers");
+    history.push("/candidates");
   }
 
   return (

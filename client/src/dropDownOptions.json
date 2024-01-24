@@ -1,0 +1,220 @@
+{
+    "gender": [
+      "Male",
+      "Female",
+      "Other"
+    ],
+    "maritialStaus": [
+      "Single",
+      "Married",
+      "Divorced",
+      "Widow"
+    ],
+    "ifMarried": [
+      "PwD",
+      "Non PwD"
+    ],
+    "Qualification": [
+      "Below SSC",
+      "SSC",
+      "Intermediate",
+      "Graduate",
+      "Post Graduate",
+      "PHD"
+    ],
+    "caste": [
+      "SC",
+      "ST",
+      "OBC",
+      "Others"
+    ],
+    "occupation": [
+      "Student",
+      "Skilled Labour",
+      "Govt Retired",
+      "Self Employee Small Scale",
+      "Self Employee Large Scale",
+      "Daily Wages",
+      "Senior Citizen",
+      "Private Employee",
+      "Ex - Army",
+      "Contract Labour",
+      "Contract Employee",
+      "Dependent",
+      "Pensioner",
+      "House Wife",
+      "Late",
+      "Others"
+    ],
+    "Income": [
+      "Not Applicable",
+      "< 25,000",
+      "26,000 to 60,000",
+      "61,000 to 99,000",
+      "1 Lakh to 2 Lakh",
+      "2 Lakh to 3 Lakh",
+      "3 Lakh & above"
+    ],
+    "yesNo": [
+      "Yes",
+      "No"
+    ],
+    "schoolBoardType": [
+      "Secondary School Certificate (SSC)",
+      "Indian Certificate of Secondary Education (ICSE)",
+      "Central Board of Secondary Education (CBSE)",
+      "National Institute of Open Schooling (NIOS)",
+      "International Baccalaureate (IB)",
+      "Other"
+    ],
+    "intermediateBoardType": [
+      "State Boards of Intermediate",
+      "Indian Certificate of Secondary Education (ICSE)",
+      "Central Board of Secondary Education (CBSE)",
+      "Council for the Indian School Certificate Examination (CISCE)",
+      "National Institute of Open Schooling (NIOS)",
+      "International Baccalaureate (IB)",
+      "Cambridge International Examinations (CIE)"
+    ],
+    "universityType": [
+      "State University",
+      "Central University",
+      "Deemed University",
+      "Private University"
+    ],
+    "otherCourses": [
+      "Technical ITI",
+      "Vocational",
+      "Diploma"
+    ],
+    "skills": [
+      "MS Office",
+      "Photoshop",
+      "Tally",
+      "DTP",
+      "Languages",
+      "DCA",
+      "PGDCA",
+      "Web Designing",
+      "Others",
+      "No Computer Litracy"
+    ],
+    "typingSpeed": [
+      "0 to 10",
+      "11 to 20",
+      "21 to 30",
+      "30 to 40",
+      "40 & above"
+    ],
+    "languages": [
+      "Marathi",
+      "Kannada",
+      "Malayalam",
+      "Tamil",
+      "Rajasthani",
+      "Telugu"
+    ],
+    "employmentStatus": [
+      "Employed",
+      "Unemployed",
+      "Self Employed"
+    ],
+    "lastSalary": [
+      "Below 30,000",
+      "31,000 to 80,000",
+      "81,000 to 1,50,000",
+      "1,51,000 & above"
+    ],
+    "yearsOfExperience": [
+      "Fresher",
+      "6 Months to 1 Year",
+      "2 to 3 Years",
+      "4 Years & above"
+    ],
+    "typeIssue": [
+      "Related to Disability",
+      "Seasonal",
+      "Long Term"
+    ],
+    "noFamilyMembers": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6 & above",
+      "Entire Family"
+    ],
+    "relation": [
+      "Brother",
+      "Sister",
+      "Aunty",
+      "Uncle",
+      "Grand Mother",
+      "Grand Father",
+      "Son",
+      "Daughter",
+      "Others"
+    ],
+    "noDisabilityCert": [
+      "Recently attended medical test",
+      "Under Process at Hospital",
+      "Under Process at Administration Department",
+      "Awaiting for Department Approval",
+      "Rejected the request"
+    ],
+    "disabilityType": [
+      "Locomotor disability",
+      "Muscular Dystrophy",
+      "Leprosy cured",
+      "Dwarfism",
+      "Cerebral Palsy",
+      "Acid attack Victim",
+      "Low vision",
+      "Blindness",
+      "Deaf",
+      "Hard of Hearing",
+      "Speech and Language disability",
+      "Intellectual Disability",
+      "Specific Learning Disability",
+      "Autism Spectrum Disorder",
+      "Mental illness",
+      "Chronic Neurological Conditions",
+      "Multiple sclerosis",
+      "Parkinson’s disease",
+      "Haemophilia",
+      "Thalassemia",
+      "Sickle Cell disease"
+    ],
+    "percentDisability": [
+      "30 to 39",
+      "40 to 59",
+      "60 to 79",
+      "80 to 100"
+    ],
+    "awareOfSchemes": [
+      "Pre-Metric Scholarships from I to X Classes",
+      "Post-Matric Scholarships",
+      "Disability Pension",
+      "Bus Concession",
+      "Economic Rehabilitation Scheme",
+      "Concession/Grace Time Exams",
+      "Marriage with a Person with Disabled",
+      "Supply of Books and Instruments to ITI and Polytechnic Students",
+      "Language Exemption to Deaf Students up to SSC",
+      "Hostel facility",
+      "Relaxation of age for admission in ITIs",
+      "Financial assistance to law graduates",
+      "Free tape recorder is given to the blind students",
+      "Readers allowance available for visually handicapped lecturers and teachers",
+      "Reimbursement of tuition fees to professionals",
+      "Training Centres for Teachers of Visually Handicapped",
+      "Residential Schools",
+      "Homes and Hostels",
+      "Scholarship to Mentally Retarded Children",
+      "Re-imbursement of tuition fee to Pre-Matric and Post-Matric students",
+      "Scholarship to Research Scholars",
+      "PwDs having job cards should form a Fixed Labour Group"
+    ]
+  }
+  

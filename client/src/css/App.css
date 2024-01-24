@@ -1,69 +1,124 @@
 body {
-  /* Gradient from top to bottom with multiple shades of blue */
-  background: linear-gradient(to bottom, #3498db, #2980b9, #1f6694, #15537a, #0d4060);
-  /* Optional: Set height to 100% to cover the entire viewport */
-  /* height: 100vh; */
-  
-  /* Optional: Add fallback color for browsers that don't support gradients */
-  background-color: #0d4060;
-  /* Optional: Set text color to contrast with the background */
+  background-color: whitesmoke;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+}
+.card-body {
+  border-radius: 0%;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: #000;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border-left: thick solid red;
+  margin-top: -8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   
 }
 
 .navbar {
-      background-color: #2c3e50; /* A mid-tone blue */
+      background-color: #1d262c;
+      color: #fff;
     }
-.navbar-dark .navbar-toggler-icon {
-  background-color: #fff; /* Color of the navbar toggler icon */
+
+.navbar-dark {
+  background-color: #1d262c; 
 }
 
 .navbar-nav .nav-link {
-  color: #fff; /* Color of the navbar links */
+  color: #fff;
 }
 
 .navbar-nav .nav-link:hover {
-  color: #ffd700; /* Color of the navbar links on hover (gold as an example) */
+  color: red; 
 }
 
 .navbar-brand {
-  color: #fff; /* Color of the navbar brand (logo/text) */
+  color: #fff; 
+} 
+
+.nav-item .btn-primary:hover{
+  height: 2px;
+  width: auto;
 }
-
-
 .content{
   margin-top: 56px;
   margin-bottom: 5em;
 }
 
-/* h4{
-  background-color: black;
-} */
+
+.ok-button{
+  width: 75px;
+  margin: 0px;
+}
+.ok-button:hover{
+  background-color: #202f3a;
+}
+.close{
+  width: 75px;
+  margin: 0px;
+  padding:50px;
+}
+.close:hover{
+  background-color: #e4e4e4;
+}
+
+.navbar-toggler {
+  width: auto;
+}
+
 h4{
   border-left: thick solid rgb(17, 17, 138);
-  margin-top: 65px;
-  height: 30px;
+  margin-top: 15px;
+  height: auto;
   padding-left: 5px;
   justify-content: baseline;
-  background-color: rgb(235, 234, 234);
+  background-color: #32404A;
+  color: rgb(243, 243, 243);
+  padding: 2px 2px 2px 12px;
 }
+
+.titleHeader{
+  margin-top: 65px;
+}
+
 h5{
   border-left: thick solid rgb(17, 17, 138);
-  /* margin-top: 65px; */
   height: auto;
   font-size: 20px;
   padding-left: 5px;
   background-color: rgb(235, 234, 234);
   cursor: pointer;
 }
+h5::before{
+  content: '\2B9E'; /* Unicode character for right arrow */
+  font-size: 0.90rem;
+  color: #555; /* Adjust the color as needed */
+  position: absolute;
+  right: 15px;
+  top: 40%;
+  transform: translateY(-50%);
+  transition: transform 0.3s ease-out;
+}
 
 .form-label {
-  font-size: 13px;
+  font-size: 12px;
   margin-bottom: 0px
 }
 .form-label::after{
   content:"*";
   color:red;
 }
+.dataTables_filter input { height: 30px; width:200px; border: 2px solid; margin-bottom: 10px;}
+
+/* .dataTables_filter input:hover { height: 50px; width:200px; border-color:rgb(30, 30, 158); } */
+
+.form-control{
+  margin-top: 5px;
+  margin-bottom: 5px;
+  /* padding-top: 150px 150px 150px 150px; */
+}
+
 .btn-primary:hover{
   background-color: red;
   border-color: red;
@@ -72,37 +127,124 @@ h5{
 
 h6{
   text-align: left;
-  font-weight: bold;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-
-
 
 label {
   padding-left: 5px;
   display: block;
   margin-bottom: -2px;
-  font-weight: bold;
   font-size: 14px;
 }
-
-
-
 
 div .container .col-lg {
   text-align: left;
   padding: 2px 1px 0px 0px;
+  margin: 5px 5px 0px 10px;
 }
 
-.table .thead-dark th {
-  font-size: 10px;
-  font-weight: bold;
-  font-family: Arial, Helvetica, sans-serif;
+div .col-lg{
+  text-align: left;
 }
-.card-body {
-  margin-top: -8px;
-  border-left: thick solid rgb(17, 17, 138);
-  padding-left: 5px;
-  justify-content: baseline;
-  background-color: white;
+
+table {
+  background-color: #e4e4e4;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
+.table th{
+  font-size: 12px;
+  white-space: nowrap;
+  text-align: center;
+  margin: 2px 2px 2px 2px;
+}
+
+.table td{
+  font-size: 13px;
+}
+
+.req {
+  color: red;
+}
+
+button {
+  background: #1f3a4e;
+  border: 1px;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 18px;
+  width: 10rem;
+  cursor: pointer;
+  color: white;
+  align-self: center;
+}
+button:hover {
+  background: rgb(5, 58, 78);
+  color: white;
+}
+
+/* Home.css */
+
+.container1 {
+  position: absolute;
+  text-align: center;
+  align-items: center;
+}
+
+.container1 img.bg-image {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+.buttons-container {
+  position: initial;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline;
+  flex-direction: column;
+  align-items: center;
+}
+
+.buttons-container button {
+  margin-top: 10px;
+  font-size: 16px;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: center;
+  color: white;
+  background-color: black;
+  transition: background-color 0.3s ease;
+}
+
+.buttons-container button:hover {
+  background-color: red;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+  .buttons-container button {
+    width: 80%;
+  }
+}
+
+
+
+
+/* fieldset.scheduler-border {
+  border: 1px groove #ddd !important;
+  padding: 0 1.4em 1.4em 1.4em !important;
+  margin: 0 0 1.5em 0 !important;
+  -webkit-box-shadow:  0px 0px 0px 0px #000;
+          box-shadow:  0px 0px 0px 0px #000;
+}
+
+legend.scheduler-border {
+  font-size: 18px;
+  width:inherit; 
+  padding:0 10px;
+  border-bottom:none;
+} */

@@ -2,30 +2,30 @@ import React, { useEffect, useContext } from "react";
 import BasePath from "../../apis/BasePath";
 import { UserMasterContext } from "../../context/UserMasterContext";
 import { useHistory } from "react-router-dom";
-import $ from 'jquery';
-// import StarRating from "./StarRating";
-
-// $(document).ready(function () {
-//   //Pagination numbers
-//   $('#UserMastersTable').DataTable({
-//     "pagingType": "numbers"
-//   });
-// });
-// $(function () {
-//   $('#UserMastersTable').DataTable();
-//   $('.dataTables_length').addClass('bs-select');
-// });
+import DataTable from 'datatables.net-dt';
+import 'datatables.net-responsive-dt';
 
 
-const UserMasterList = (props) => {
+const UserMasterList = () => {
   const { userMasters, setUserMasters } = useContext(UserMasterContext);
   let history = useHistory();
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await BasePath.get("/userMasters");
-        console.log(response.data.data);
         setUserMasters(response.data.data.User_Masters);
+        let table = new DataTable('#UserMastersTable', {
+          "language":{
+            "zeroRecords": "No Employee found"
+            },
+            "processing": true,
+            "scrollX": true,
+            "scrollY": true,
+            "fixedColumns": true,
+            "scrollCollapse": true,
+          // responsive: true,
+          
+      });
       } catch (err) {}
     };
 
@@ -56,18 +56,6 @@ const UserMasterList = (props) => {
     history.push(`/userMasters/${um_seq}`);
   };
 
-  // const renderRating = (userMaster) => {
-  //   if (!restaurant.count) {
-  //     return <span className="text-warning">0 reviews</span>;
-  //   }
-  //   return (
-  //     <>
-  //       <StarRating rating={restaurant.id} />
-  //       <span className="text-warning ml-1">({restaurant.count})</span>
-  //     </>
-  //   );
-  // };
-
   return (
     <>
     <h4>
@@ -80,10 +68,7 @@ const UserMasterList = (props) => {
       width="100%"
       >
         <thead className =" thead-dark">
-          <tr className="bg-primary">
-            {/* <th scope="col">SEQ</th>
-            <th scope="col">Login Id</th>
-            <th scope="col">Password</th> */}
+          <tr>
             <th scope="col">Role</th>
             <th scope="col">Name</th>
             <th scope="col">Address</th>
@@ -91,26 +76,13 @@ const UserMasterList = (props) => {
             <th scope="col">Unique ID</th>
             <th scope="col">ID Type</th>
             <th scope="col">Department</th>
-            {/* <th scope="col">Login Sts</th>
-            <th scope="col">Created Time</th>
-            <th scope="col">last Login</th>
-            <th scope="col">Ln Attempts</th> */}
-            <th scope="col">Update</th>
-            <th scope="col">Delete</th>
-
           </tr>
         </thead>
-        <tbody
-        style={{
-          backgroundColor:"skyblue"
-        }}>
+        <tbody>
           {userMasters &&
             userMasters.map((userMaster) => {
               return (
                 <tr>
-                  {/* <td>{userMaster.um_seq}</td>
-                  <td>{userMaster.um_login_id}</td>
-                  <td>{userMaster.um_password}</td> */}
                   <td>{userMaster.um_role}</td>
                   <td
                   onClick={() => handleUserMasterSelect(userMaster.um_seq)}
@@ -121,11 +93,7 @@ const UserMasterList = (props) => {
                   <td>{userMaster.um_unique_id}</td>
                   <td>{userMaster.um_id_type}</td>
                   <td>{userMaster.um_dept}</td>
-                  {/* <td>{userMaster.um_login_sts}</td>
-                  <td>{userMaster.um_created_time}</td>
-                  <td>{userMaster.um_last_login}</td>
-                  <td>{userMaster.um_ln_attempts}</td> */}
-                  <td>
+                  {/* <td>
                     <button
                       onClick={(e) => handleUpdate(e, userMaster.um_seq)}
                       className="btn btn-warning"
@@ -140,35 +108,10 @@ const UserMasterList = (props) => {
                     >
                       Delete
                     </button>
-                  </td>
+                  </td> */}
                 </tr>
               );
             })}
-          {/* <tr>
-            <td>mcdonalds</td>
-            <td>New YOrk</td>
-            <td>$$</td>
-            <td>Rating</td>
-            <td>
-              <button className="btn btn-warning">Update</button>
-            </td>
-            <td>
-              <button className="btn btn-danger">Delete</button>
-            </td>
-          </tr>
-
-          <tr>
-            <td>mcdonalds</td>
-            <td>New YOrk</td>
-            <td>$$</td>
-            <td>Rating</td>
-            <td>
-              <button className="btn btn-warning">Update</button>
-            </td>
-            <td>
-              <button className="btn btn-danger">Delete</button>
-            </td>
-          </tr> */}
         </tbody>
       </table>
     </div>

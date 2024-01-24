@@ -20,10 +20,6 @@ const AddVolunteer = () => {
   const [um_last_login, setUmLastLogin] = useState("");
   const [um_ln_attempts, setUmLnAttempts] = useState("");
 
-  // const [ul_seq, setUlSeq] = useState(0);
-  // const [ul_emp_id, setUlEmpId] = useState(um_seq);
-  // const [ul_vol_id, setUlVolId] = useState();
-  // const [ul_candidate_id, setUlCandidateId] = useState(0);
   
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -47,7 +43,6 @@ const AddVolunteer = () => {
       }
 
       );
-      console.log(response.data.data);
       addVolunteers(response.data.data.Volunteers);
       alert('Volunteer Added');
     } catch (err) {
@@ -55,29 +50,12 @@ const AddVolunteer = () => {
       console.log(err);
     }
 
-    // try {
-    //   const responseUL = await BasePath.post("/userLinkage", {
-    //     ul_seq,
-    //     ul_emp_id,
-    //     ul_vol_id,
-    //     ul_candidate_id,
-    //   }
-
-      // );
-    //   console.log(responseUL.data.data);
-    //   addUserMasters(responseUL.data.data.Linked_Users);
-    //   // alert('User Added');
-    // } catch (err) {
-    //   alert(err)
-    //   console.log(err);
-    // }
 
 
   };
   return (
     <>
     <h4> Add A Volunteer</h4>
-      {/* <div id="addVolunteer"> */}
         <div className="mb-4" >
           <form action="">
             <div className="form-row">
@@ -114,20 +92,6 @@ const AddVolunteer = () => {
                   required
                 />
               </div>
-              {/* <div className="col">
-                <select
-                  value={um_password}
-                  onChange={(e) => setPriceRange(e.target.value)}
-                  className="custom-select my-1 mr-sm-2"
-                >
-                  <option disabled>Price Range</option> 
-                  <option value="1">$</option>
-                  <option value="2">$$</option>
-                  <option value="3">$$$</option>
-                  <option value="4">$$$$</option>
-                  <option value="5">$$$$$</option>
-                </select>
-              </div>  */}
               <div className="col">
               <label class="form-label">Role</label>
                 <input
@@ -264,7 +228,6 @@ const AddVolunteer = () => {
                 style={{
 
                   marginTop: "25px",
-                  // alignSelf: "center",
                   width: "150px"
                 }}
                 
@@ -275,7 +238,6 @@ const AddVolunteer = () => {
             </div>
           </form>
         </div>
-      {/* </div> */}
     </>
   );
 };

@@ -37,7 +37,7 @@ const UpdateCandidate = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await BasePath.get(`/candidates/${candidate_id}`);
-      console.log(response.data.data);
+      // console.log(response.data.data);
       setCandidateId(response.data.data.Candidates.candidate_id);
       setSalesRepEmpNum(response.data.data.Candidates.sales_rep_emp_num);
       setCustFirstName(response.data.data.Candidates.cust_first_name);
@@ -88,46 +88,6 @@ const UpdateCandidate = (props) => {
       Updating {cust_first_name +" "+cust_last_name}'s Data
     </h4>
     <div className="mb-4">
-      {/* <form action="">
-        <div className="form-group">
-          <label htmlFor="name">Name</label>
-          <input
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            id="name"
-            className="form-control"
-            type="text"
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="location">Location</label>
-          <input
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            id="location"
-            className="form-control"
-            type="text"
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="price_range">Price Range</label>
-          <input
-            value={priceRange}
-            onChange={(e) => setPriceRange(e.target.value)}
-            id="price_range"
-            className="form-control"
-            type="number"
-          />
-        </div>
-        <button
-          type="submit"
-          onClick={handleSubmit}
-          className="btn btn-primary"
-        >
-          Submit
-        </button>
-      </form> */}
       <form action="">
         <div className="form-row">
           <div className="col">
@@ -157,20 +117,6 @@ const UpdateCandidate = (props) => {
               placeholder="Cust First Name"
             />
           </div>
-          {/* <div className="col">
-            <select
-              value={um_password}
-              onChange={(e) => setPriceRange(e.target.value)}
-              className="custom-select my-1 mr-sm-2"
-            >
-              <option disabled>Price Range</option>
-              <option value="1">$</option>
-              <option value="2">$$</option>
-              <option value="3">$$$</option>
-              <option value="4">$$$$</option>
-              <option value="5">$$$$$</option>
-            </select>
-          </div> */}
           <div className="col">
             <input
               value={cust_last_name}
