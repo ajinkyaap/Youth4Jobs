@@ -9,6 +9,8 @@ const CandidateDetailPage = () => {
   const { selectedCandidate, setSelectedCandidate } = useContext(
     CandidateContext
   );
+  // const {vol_id} = useParams();
+  let history = useHistory();
   
 
   useEffect(() => {
@@ -26,12 +28,12 @@ const CandidateDetailPage = () => {
     fetchData();
   }, []);
   
-  // let history = useHistory();
-  // let vol_idd = localStorage.getItem(user-info[])
-  // console.log(vol_idd)
-  // const handleBack =() =>{
-  //   history.push(`/volunteers/${vol_id}`)
-  // };
+  let loggedInUser = localStorage.getItem('user-info') ?
+                      JSON.parse(localStorage.getItem('user-info')) : [];
+
+  const handleBack = () => {
+    history.push(`/volunteers/${selectedCandidate.sales_rep_emp_num}`);
+  };
 
   return (
     <><Header/>
@@ -41,11 +43,26 @@ const CandidateDetailPage = () => {
       </button> */}
       {selectedCandidate && (
         <>
+        <div className="row">
+            <div className="col-lg"
+                style={{
+              display:"flex",
+              justifyContent: "right"
+                }}>
+                {
+                    loggedInUser["um_role"] == "11" &&
+                    <button className= "backButton" onClick={handleBack}
+                    style={{
+                      margin: "-10px 20px -65px 0px"
+                    }}  
+                    >Back</button>
+                  }
+                </div>                  
+          </div>
           <h4 className="titleHeader">
             Candidate Details
           </h4>
           <div className="container">
-          
             <div className="row">
               <div className="col-lg">
                   <h6>Candidate Name : </h6>
@@ -699,6 +716,188 @@ const CandidateDetailPage = () => {
               </div>
               <div className="col-lg">
               {selectedCandidate.member3_name}
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg">
+                  <h6>Member3 Relation : </h6>
+              </div>
+              <div className="col-lg">
+                {selectedCandidate.member3_relation}
+              </div>
+                <div className="col-lg">
+                  <h6>Member3 gender : </h6>
+              </div>
+              <div className="col-lg">
+              {selectedCandidate.member3_gender}
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg">
+                  <h6>Member3 age : </h6>
+              </div>
+              <div className="col-lg">
+                {selectedCandidate.member3_age}
+              </div>
+                <div className="col-lg">
+                  <h6>Member3 education : </h6>
+              </div>
+              <div className="col-lg">
+              {selectedCandidate.member3_education}
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg">
+                  <h6>Member3 occupation : </h6>
+              </div>
+              <div className="col-lg">
+                {selectedCandidate.member3_occupation}
+              </div>
+                <div className="col-lg">
+                  <h6>Member3 income : </h6>
+              </div>
+              <div className="col-lg">
+              {selectedCandidate.member3_income}
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg">
+                  <h6>Member4 Name : </h6>
+              </div>
+              <div className="col-lg">
+                {selectedCandidate.member4_name}
+              </div>
+                <div className="col-lg">
+                  <h6>Member4 relation : </h6>
+              </div>
+              <div className="col-lg">
+              {selectedCandidate.member4_relation}
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg">
+                  <h6>Member4 gender : </h6>
+              </div>
+              <div className="col-lg">
+                {selectedCandidate.member4_gender}
+              </div>
+                <div className="col-lg">
+                  <h6>Member4 age : </h6>
+              </div>
+              <div className="col-lg">
+              {selectedCandidate.member4_age}
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg">
+                  <h6>Member4 education : </h6>
+              </div>
+              <div className="col-lg">
+                {selectedCandidate.member4_education}
+              </div>
+                <div className="col-lg">
+                  <h6>Member4 occupation : </h6>
+              </div>
+              <div className="col-lg">
+              {selectedCandidate.member4_occupation}
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg">
+                  <h6>Member4 income : </h6>
+              </div>
+              <div className="col-lg">
+                {selectedCandidate.member4_income}
+              </div>
+                <div className="col-lg">
+                  <h6>Member5 income : </h6>
+              </div>
+              <div className="col-lg">
+              {selectedCandidate.member5_income}
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg">
+                  <h6>Member5 Name : </h6>
+              </div>
+              <div className="col-lg">
+                {selectedCandidate.member5_name}
+              </div>
+                <div className="col-lg">
+                  <h6>Member5 relation : </h6>
+              </div>
+              <div className="col-lg">
+              {selectedCandidate.member5_relation}
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg">
+                  <h6>Member5 gender : </h6>
+              </div>
+              <div className="col-lg">
+                {selectedCandidate.member5_gender}
+              </div>
+                <div className="col-lg">
+                  <h6>Member5 age : </h6>
+              </div>
+              <div className="col-lg">
+              {selectedCandidate.member5_age}
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg">
+                  <h6>Member5 education : </h6>
+              </div>
+              <div className="col-lg">
+                {selectedCandidate.member5_education}
+              </div>
+                <div className="col-lg">
+                  <h6>Member5 occupation : </h6>
+              </div>
+              <div className="col-lg">
+              {selectedCandidate.member5_occupation}
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg">
+                  <h6>Member6 Name : </h6>
+              </div>
+              <div className="col-lg">
+                {selectedCandidate.member6_Name}
+              </div>
+                <div className="col-lg">
+                  <h6>Member6 relation : </h6>
+              </div>
+              <div className="col-lg">
+              {selectedCandidate.member6_relation}
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg">
+                  <h6>Member6 gender : </h6>
+              </div>
+              <div className="col-lg">
+                {selectedCandidate.member6_gender}
+              </div>
+                <div className="col-lg">
+                  <h6>Member6 age : </h6>
+              </div>
+              <div className="col-lg">
+              {selectedCandidate.member6_age}
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg">
+                  <h6>Member6 education : </h6>
+              </div>
+              <div className="col-lg">
+                {selectedCandidate.member6_education}
+              </div>
+                <div className="col-lg">
+                  <h6>Member6 occupation : </h6>
+              </div>
+              <div className="col-lg">
+              {selectedCandidate.member6_occupation}
               </div>
             </div>
           </div>

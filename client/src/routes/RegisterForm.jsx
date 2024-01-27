@@ -13,13 +13,13 @@ const RegisterForm = () => {
     const { addVolunteers } = useContext(VolunteerContext);
     const { addUserMasters } = useContext(UserMasterContext);
     const [um_seq, setUmSeq] = useState(null);
-    const [um_login_id, setUmLoginId] = useState("");
-    const [um_password, setUmPassword] = useState("");
-    const [um_role, setUmRole] = useState(0);
-    const [um_name, setUmName] = useState("");
+    const [um_login_id, setUmLoginId] = useState(null);
+    const [um_password, setUmPassword] = useState(null);
+    const [um_role, setUmRole] = useState(null);
+    const [um_name, setUmName] = useState(null);
     // const [um_address, setUmAddress] = useState("");
-    const [um_email, setUmEmail] = useState("");
-    const [um_mobile_no, setUmMobileNo] = useState("");
+    const [um_email, setUmEmail] = useState(null);
+    const [um_mobile_no, setUmMobileNo] = useState(null);
 
     const d = new Date();
     let hour = d.getHours();
@@ -62,10 +62,10 @@ const RegisterForm = () => {
             }
 
             );
-            // console.log(response.data.data);
+            console.log(response.data.data);
             addVolunteers(response.data.data.Volunteers);
             alert('Volunteer Added');
-            console.log("Um Sequence = " + um_seq)
+            console.log("Um Sequence = ", response)
             history.push("/");
         } catch (err) {
             alert(err)
@@ -88,7 +88,7 @@ const RegisterForm = () => {
             }
 
             );
-            // console.log(response.data.data);
+            console.log(response.data.data);
             addUserMasters(response.data.data.User_Masters);
             alert('User Master Added');
             history.push("/");

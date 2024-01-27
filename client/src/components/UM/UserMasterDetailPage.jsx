@@ -26,10 +26,8 @@ const UserMasterDetailPage = () => {
 
 
         const userVolunteerDataResponse = await BasePath.get(`/userVolunteers/${um_seq}`);
-        if(userVolunteerDataResponse){
         setVolunteers(userVolunteerDataResponse.data.data.userVolunteers);
-        }
-        console.log("User Volunteers", volunteers)
+        console.log("User Volunteers", userVolunteerDataResponse.data.data.userVolunteers)
 
         let table = new DataTable('#VolunteersTable', {
           "language":{
@@ -49,6 +47,7 @@ const UserMasterDetailPage = () => {
     fetchData();
   }, [setVolunteers]);
 
+  // console.log("Volunteers", volunteers)
 
   const handleDelete = async (e, vol_id) => {
     e.stopPropagation();
@@ -82,7 +81,7 @@ const UserMasterDetailPage = () => {
       {selectedUserMaster && (
         <>
           <h4 className="titleHeader" id="VolunteerData" data-toggle="collapse" data-target="#userMasterData" aria-expanded="true" aria-controls="userMasterData">
-            {selectedUserMaster.um_name}'s Data
+            Employee : {selectedUserMaster.um_name}'s Data
           </h4>
           <div className="card">
             <div id="userMasterData" className="collapse show" aria-labelledby="userMasterData" data-parent="#accordionExampleVolunteer">
@@ -95,19 +94,20 @@ const UserMasterDetailPage = () => {
               </div>
               <div className="col-lg" >{selectedUserMaster.um_name}</div>
               <div className="col-lg">
-                  <h6> Department : </h6>
+                  <h6> Email ID : </h6>
               </div>
-              <div className="col-lg">{selectedUserMaster.um_dept}</div>
+              <div className="col-lg">{selectedUserMaster.um_email}</div>
             </div>
             <div className="row">
               <div className="col-lg">
                   <h6> Address : </h6>
               </div>
               <div className="col-lg">{selectedUserMaster.um_address}</div>
-                <div className="col-lg">
-                  <h6> Email ID : </h6>
+              <div className="col-lg">
+                  <h6> Mobile No : </h6>
               </div>
-              <div className="col-lg">{selectedUserMaster.um_email}</div>
+              <div className="col-lg">{selectedUserMaster.um_mobile_no}</div>
+                
             </div>
             </div>
             </div>
