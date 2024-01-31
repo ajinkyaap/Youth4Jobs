@@ -5,6 +5,7 @@ import { CandidateContext } from "../../context/CandidateContext";
 import dropdownOptions from '../../dropDownOptions.json';
 import { Input, InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
 import Header from "../../routes/Header";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 // import "../../css/login.css"
 
 
@@ -149,9 +150,166 @@ const [income_cert_no, setIncomeCertNo] = useState(null);
 const [marriage_cert_no, setMarriageCertNo] = useState(null);
 const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
 
+const formData = {
+  sales_rep_emp_num,
+      candidate_aadhar,
+      candidate_name,
+      candidate_mobile,
+      candidate_alt_mobile,
+      candidate_gender,
+      candidate_email,
+      candidate_dob,
+      candidate_maritial_sts,
+      candidate_married_pwd,
+      candidate_edu_qualification,
+      candidate_caste,
+      candidate_father_name,
+      candidate_father_age,
+      candidate_father_education,
+      candidate_father_occupation,
+      candidate_father_mobile,
+      candidate_father_income,
+      candidate_mother_name,
+      candidate_mother_age,
+      candidate_mother_education,
+      candidate_mother_occupation,
+      candidate_mother_mobile,
+      candidate_mother_income,
+      candidate_spouse_name,
+      candidate_spouse_age,
+      candidate_spouse_education,
+      candidate_spouse_occupation,
+      candidate_spouse_income,
+      candidate_door_no,
+      candidate_village,
+      candidate_gram_panchayat,
+      candidate_post_office,
+      candidate_mandal,
+      candidate_district,
+      candidate_school,
+      candidate_special_school,
+      candidate_school_board,
+      candidate_college_name,
+      candidate_special_college,
+      candidate_college_board,
+      candidate_university_name,
+      candidate_special_university,
+      candidate_university_type,
+      candidate_phd_college,
+      candidate_phd_specialization,
+      candidate_phd_university_type,
+      candidate_other_courses,
+      computer_skills,
+      typing_speed,
+      is_employed,
+      last_salary,
+      years_experience,
+      experience1,
+      experience2,
+      bank_name,
+      account_no,
+      branch_name,
+      ifsc_code,
+      know_driving,
+      have_license,
+      driving_license_no,
+      own_vehicle,
+      vehicle_number,
+      health_issues,
+      issue_type,
+      no_family_member,
+      pwd_family,
+      no_pwd_family_member,
+      member1_name,
+      member1_relation,
+      member1_gender,
+      member1_age,
+      member1_education,
+      member1_occupation,
+      member1_income,
+      member2_name,
+      member2_relation,
+      member2_gender,
+      member2_age,
+      member2_education,
+      member2_occupation,
+      member2_income,
+      member3_name,
+      member3_relation,
+      member3_gender,
+      member3_age,
+      member3_education,
+      member3_occupation,
+      member3_income,
+      member4_name,
+      member4_relation,
+      member4_gender,
+      member4_age,
+      member4_education,
+      member4_occupation,
+      member4_income,
+      member5_name,
+      member5_relation,
+      member5_gender,
+      member5_age,
+      member5_education,
+      member5_occupation,
+      member5_income,
+      member6_name,
+      member6_relation,
+      member6_gender,
+      member6_age,
+      member6_education,
+      member6_occupation,
+      member6_income,
+      candidate_contact_no,
+      is_disable,
+      disable_certificate,
+      no_disable_certificate,
+      disability_type,
+      disability_percent,
+      dependent,
+      disability_pension,
+      no_disability_pension,
+      availed_schemes_knowledge,
+      availed_schemes,
+      ration_card_no,
+      voter_id_no,
+      pan_card_no,
+      disability_cert_no,
+      ssc_proof_no,
+      ssc_memo_no,
+      hsc_memo_no,
+      grad_memo_no,
+      pg_memo_no,
+      phd_no,
+      tech_qualification_memo_no,
+      vocatioanl_memo_no,
+      diploma_memo_no,
+      income_cert_no,
+      marriage_cert_no
+};
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+// console.log("Fpr", formData)
+  try {
+    if (navigator.onLine) {
+      // Online: Post form data to the server
+      console.log("Online")
+      handleDBPush();
+    } else {
+      // Offline: Save form data to local JSON file
+      console.log("Offline")
+      saveToLocalFile(formData);
+    }
+  } catch (error) {
+    console.error('Error submitting form:', error);
+  }
+};
+  const handleDBPush = async (e) => {
+    // e.preventDefault();
     try {
       const response = await BasePath.post("/candidates", {
         sales_rep_emp_num,
@@ -290,12 +448,11 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
         vocatioanl_memo_no,
         diploma_memo_no,
         income_cert_no,
-        marriage_cert_no
-        
+        marriage_cert_no        
       }
 
       );
-      // console.log(response.data.data);
+      console.log(response.data.data);
       addCandidates(response.data.data.Candidates);
       alert('Candidate Added');
     } catch (err) {
@@ -303,11 +460,61 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
       console.log(err);
     }
   };
+  const saveToLocalFile = async (formData) => {
+    const jsonData = JSON.stringify(formData, null, 2);
+  
+    // Specify the file path
+    const filePath = 'offlineFormData.json';
+  
+    try {
+      // Import the fs module
+      const fs = require('fs').promises;
+  
+      // Check if the file exists
+      await fs.access(filePath);
+  
+      // If the file exists, append the data to it
+      await fs.appendFile(filePath, jsonData, 'utf8');
+    } catch (error) {
+      // If the file doesn't exist, create it and write the data
+      const fs = require('fs').promises;
+      await fs.writeFile(filePath, jsonData, 'utf8');
+    }
+  
+    console.log('Form data saved to local file');
+  };
+  
+  
+  
+
+  let loggedInUser = localStorage.getItem('user-info') ?
+                      JSON.parse(localStorage.getItem('user-info')) : [];
+
+  let history = useHistory();
+  const handleBack = () => {
+    history.push(`/volunteers/${loggedInUser["vol_id"]}`);
+  };
+
 
   return (
     <>
       <Header/>
       <div className="container">
+      <div className="row">
+            <div className="col-lg"
+                style={{
+              display:"flex",
+              justifyContent: "right"
+                }}>
+                {
+                    <button className= "backButton" onClick={handleBack}
+                    style={{
+                      margin: "-10px 20px -65px 0px"
+                    }}  
+                    >Back</button>
+                  }
+                </div>                  
+          </div>
         <h4 className="titleHeader">Add A Candidate</h4>
         <div className="mb-4">
           <form action="" onSubmit={handleSubmit}>
@@ -327,7 +534,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                           <div className="col-md-3 mb-2" >
                             <label 
                             htmlFor="candidate_aadhar"
-                            >Enter Aadhar Number:<span class="req">*</span></label>
+                            >Enter Aadhar Number:<span className="req">*</span></label>
                             <input
                               type="text"
                               placeholder="Enter Aadhar number"
@@ -339,7 +546,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                             />
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="candidate_name">Candidate Name:<span class="req">*</span></label>
+                            <label htmlFor="candidate_name">Candidate Name:<span className="req">*</span></label>
                             <input type="text" placeholder="Enter Candidate's Name"
                               pattern="^[A-Za-z]{1,80}$" maxLength="80"
                               value={candidate_name}
@@ -349,7 +556,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                             />
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="candidate_mobile">Mobile Number:<span class="req">*</span></label>
+                            <label htmlFor="candidate_mobile">Mobile Number:<span className="req">*</span></label>
                             <input type="tel" placeholder="Enter Mobile No."
                               pattern="[6-9]{1}[0-9]{9}" title="Enter 10 digit Mobile Number"
                               value={candidate_mobile}
@@ -359,7 +566,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                             />
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="candidate_alt_mobile">Alternate Mobile Number:<span class="req">*</span></label>
+                            <label htmlFor="candidate_alt_mobile">Alternate Mobile Number:<span className="req">*</span></label>
                             <input type="tel" placeholder="Enter Alt. Mobile No."
                               pattern="[6-9]{1}[0-9]{9}" title="Enter 10 digit Alt Mobile Number"
                               value={candidate_alt_mobile}
@@ -368,7 +575,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                             />
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="candidate_gender">Select Gender:<span class="req">*</span></label>
+                            <label htmlFor="candidate_gender">Select Gender:<span className="req">*</span></label>
                               <InputGroup>
                                 <select className="custom-select" 
                                 value={candidate_gender}
@@ -386,7 +593,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               </InputGroup>
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="candidate_email">Candidate Email ID:<span class="req">*</span></label>
+                            <label htmlFor="candidate_email">Candidate Email ID:<span className="req">*</span></label>
                             <input type="text" placeholder="Enter Candidate's Email ID"
                               pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" maxLength="80"
                               value={candidate_email}
@@ -396,7 +603,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                             />
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="candidate_dob">Select Date of Birth:<span class="req">*</span></label>
+                            <label htmlFor="candidate_dob">Select Date of Birth:<span className="req">*</span></label>
                             <input type="date" placeholder="Select DOB"
                               value={candidate_dob}
                               onChange={(e) => setCandidateDob(e.target.value)}
@@ -406,7 +613,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                           </div>
 
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="candidate_maritial_sts">Select Maritial Status:<span class="req">*</span></label>
+                            <label htmlFor="candidate_maritial_sts">Select Maritial Status:<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={candidate_maritial_sts}
@@ -423,7 +630,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               </InputGroup>
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="candidate_married_pwd">Married Disabled?<span class="req">*</span></label>
+                            <label htmlFor="candidate_married_pwd">Married Disabled?<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={candidate_married_pwd}
@@ -440,7 +647,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               </InputGroup>
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="candidate_edu_qualification">Education Qualification:<span class="req">*</span></label>
+                            <label htmlFor="candidate_edu_qualification">Education Qualification:<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={candidate_edu_qualification}
@@ -457,7 +664,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               </InputGroup>
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="candidate_caste ">Caste:<span class="req">*</span></label>
+                            <label htmlFor="candidate_caste ">Caste:<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={candidate_caste}
@@ -487,11 +694,11 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                     <div id="contentTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                       <div className="card-body">
                           {/* <!-- H4 Fathers Details --> */}
-                          {/* <fieldset class="scheduler-border">
-                          <legend class="scheduler-border">Fathers's Data:</legend> */}
+                          {/* <fieldset className="scheduler-border">
+                          <legend className="scheduler-border">Fathers's Data:</legend> */}
                             <div className="form-row">
                               <div className="col-md-3 mb-2" >
-                                <label htmlFor="candidate_father_name">Father's Name:<span class="req">*</span></label>
+                                <label htmlFor="candidate_father_name">Father's Name:<span className="req">*</span></label>
                                 <input type="text" placeholder="Enter Father's Name"
                                   pattern="^[A-Za-z]{1,80}$" maxLength="80"
                                   value={candidate_father_name}
@@ -501,7 +708,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                                 />
                               </div>
                               <div className="col-md-3 mb-2" >
-                                <label htmlFor="candidate_father_age">Father's Age<span class="req">*</span></label>
+                                <label htmlFor="candidate_father_age">Father's Age<span className="req">*</span></label>
                                 <input type="number"
                                   value={candidate_father_age}
                                   onChange={(e) => setCandidateFatherAge(e.target.value)}
@@ -510,7 +717,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                                 />
                               </div>
                               <div className="col-md-3 mb-2" >
-                                <label htmlFor="candidate_father_education">Father's Education Qualification:<span class="req">*</span></label>
+                                <label htmlFor="candidate_father_education">Father's Education Qualification:<span className="req">*</span></label>
                                 <InputGroup>
                                 <select className="custom-select" 
                                 value={candidate_father_education}
@@ -526,7 +733,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               </InputGroup>
                               </div>
                               <div className="col-md-3 mb-2" >
-                                <label htmlFor="candidate_father_occupation">Father's Occupation:<span class="req">*</span></label>
+                                <label htmlFor="candidate_father_occupation">Father's Occupation:<span className="req">*</span></label>
                                 <InputGroup>
                                 <select className="custom-select" 
                                 value={candidate_father_occupation}
@@ -543,7 +750,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               </div>
 
                               <div className="col-md-3 mb-2" >
-                                <label htmlFor="candidate_father_mobile">Father's Mobile Number:<span class="req">*</span></label>
+                                <label htmlFor="candidate_father_mobile">Father's Mobile Number:<span className="req">*</span></label>
                                 <input type="number" placeholder="Enter Mobile No."
                                   pattern="/^[1-9][0-9]{9}$/gm" title="Enter 10 digit Mobile Number"
                                   value={candidate_father_mobile}
@@ -553,7 +760,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                                 />
                               </div>
                               <div className="col-md-3 mb-2" >
-                                <label htmlFor="candidate_father_income">Father's Income:<span class="req">*</span></label>
+                                <label htmlFor="candidate_father_income">Father's Income:<span className="req">*</span></label>
                                 <InputGroup>
                                 <select className="custom-select" 
                                 value={candidate_father_income}
@@ -575,7 +782,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                           {/* <!-- H4 Mothers Details --> */}
                           <div className="form-row">
                             <div className="col-md-3 mb-2" >
-                              <label htmlFor="candidate_mother_name">Mother's Name:<span class="req">*</span></label>
+                              <label htmlFor="candidate_mother_name">Mother's Name:<span className="req">*</span></label>
                               <input
                                 type="text"
                                 placeholder="Enter Mother's Name"
@@ -588,7 +795,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               />
                             </div>
                             <div className="col-md-3 mb-2" >
-                              <label htmlFor="candidate_mother_age">Mother's Age<span class="req">*</span></label>
+                              <label htmlFor="candidate_mother_age">Mother's Age<span className="req">*</span></label>
                               <input
                                 type="number"
                                 value={candidate_mother_age}
@@ -598,7 +805,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               />
                             </div>
                             <div className="col-md-3 mb-2" >
-                              <label htmlFor="candidate_mother_education">Mother's Education Qualification:<span class="req">*</span></label>
+                              <label htmlFor="candidate_mother_education">Mother's Education Qualification:<span className="req">*</span></label>
                               <InputGroup>
                                 <select className="custom-select" 
                                 value={candidate_mother_education}
@@ -614,7 +821,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               </InputGroup>
                             </div>
                             <div className="col-md-3 mb-2" >
-                              <label htmlFor="candidate_mother_occupation">Mother's Occupation:<span class="req">*</span></label>
+                              <label htmlFor="candidate_mother_occupation">Mother's Occupation:<span className="req">*</span></label>
                               <InputGroup>
                                 <select className="custom-select" 
                                 value={candidate_mother_education}
@@ -631,7 +838,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                             </div>
 
                             <div className="col-md-3 mb-2" >
-                              <label htmlFor="candidate_mother_mobile">Mother's Mobile Number:<span class="req">*</span></label>
+                              <label htmlFor="candidate_mother_mobile">Mother's Mobile Number:<span className="req">*</span></label>
                               <input
                                 type="number"
                                 placeholder="Enter Mobile No."
@@ -644,7 +851,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               />
                             </div>
                             <div className="col-md-3 mb-2" >
-                              <label htmlFor="candidate_mother_income">Mother's Income:<span class="req">*</span></label>
+                              <label htmlFor="candidate_mother_income">Mother's Income:<span className="req">*</span></label>
                               <InputGroup>
                                 <select className="custom-select" 
                                 value={candidate_mother_income}
@@ -666,7 +873,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                           {/* <!-- H4 Spouse Details --> */}
                           <div className="form-row">
                             <div className="col-md-3 mb-2" >
-                              <label htmlFor="candidate_spouse_name">Spouse's Name:<span class="req">*</span></label>
+                              <label htmlFor="candidate_spouse_name">Spouse's Name:<span className="req">*</span></label>
                               <input
                                 type="text"
                                 placeholder="Enter Spouse's Name"
@@ -679,7 +886,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               />
                             </div>
                             <div className="col-md-3 mb-2" >
-                              <label htmlFor="candidate_spouse_age">Spouse's Age<span class="req">*</span></label>
+                              <label htmlFor="candidate_spouse_age">Spouse's Age<span className="req">*</span></label>
                               <input
                                 type="number"
                                 value={candidate_spouse_age}
@@ -690,7 +897,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                             </div>
                             <div className="col-md-3 mb-2" >
                               {/* <!-- ToDo --> */}
-                              <label htmlFor="candidate_spouse_education">Spouse's Education Qualification:<span class="req">*</span></label>
+                              <label htmlFor="candidate_spouse_education">Spouse's Education Qualification:<span className="req">*</span></label>
                               <InputGroup>
                                 <select className="custom-select" 
                                 value={candidate_spouse_education}
@@ -707,7 +914,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                             </div>
                             <div className="col-md-3 mb-2" >
                               {/* <!-- ToDo --> */}
-                              <label htmlFor="candidate_spouse_occupation">Spouse's Occupation:<span class="req">*</span></label>
+                              <label htmlFor="candidate_spouse_occupation">Spouse's Occupation:<span className="req">*</span></label>
                               <InputGroup>
                                 <select className="custom-select" 
                                 value={candidate_spouse_occupation}
@@ -724,7 +931,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                             </div>
                             <div className="col-md-3 mb-2" >
                               {/* <!-- ToDo --> */}
-                              <label htmlFor="candidate_spouse_income">Spouse's Income:<span class="req">*</span></label>
+                              <label htmlFor="candidate_spouse_income">Spouse's Income:<span className="req">*</span></label>
                               <InputGroup>
                                 <select className="custom-select" 
                                 value={candidate_spouse_income}
@@ -754,7 +961,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                       <div className="card-body">
                         <div className="form-row">
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="candidate_door_no">Candidate Door No.:<span class="req">*</span></label>
+                            <label htmlFor="candidate_door_no">Candidate Door No.:<span className="req">*</span></label>
                             <input
                               type="number"
                               placeholder="Door No."
@@ -766,7 +973,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                             />
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="candidate_village">Village Name:<span class="req">*</span></label>
+                            <label htmlFor="candidate_village">Village Name:<span className="req">*</span></label>
                             <input
                               type="text"
                               placeholder="Village Name."
@@ -778,7 +985,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                             />
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="candidate_gram_panchayat">Gram Panchayat:<span class="req">*</span></label>
+                            <label htmlFor="candidate_gram_panchayat">Gram Panchayat:<span className="req">*</span></label>
                             <input
                               type="text"
                               placeholder="Gram Panchayat Name."
@@ -790,7 +997,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                             />
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="candidate_post_office">Post Office:<span class="req">*</span></label>
+                            <label htmlFor="candidate_post_office">Post Office:<span className="req">*</span></label>
                             <input
                               type="text"
                               placeholder="Post Office"
@@ -803,7 +1010,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                           </div>
 
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="candidate_mandal">Mandal:<span class="req">*</span></label>
+                            <label htmlFor="candidate_mandal">Mandal:<span className="req">*</span></label>
                             <input
                               type="text"
                               placeholder="Mandal"
@@ -815,7 +1022,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                             />
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="candidate_district">District Name:<span class="req">*</span></label>
+                            <label htmlFor="candidate_district">District Name:<span className="req">*</span></label>
                             <input
                               type="text"
                               placeholder="District Name"
@@ -844,7 +1051,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                           {/* <!-- EDUCATION DETAILS --> */}
                           {/* <!-- School --> */}
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="candidate_school">School Name:<span class="req">*</span></label>
+                            <label htmlFor="candidate_school">School Name:<span className="req">*</span></label>
                             <input
                               type="text"
                               placeholder="School Name"
@@ -856,7 +1063,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                             />
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="candidate_special_school">Special School?<span class="req">*</span></label>
+                            <label htmlFor="candidate_special_school">Special School?<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={candidate_special_school}
@@ -872,7 +1079,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               </InputGroup>
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="candidate_school_board">School Board:<span class="req">*</span></label>
+                            <label htmlFor="candidate_school_board">School Board:<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={candidate_school_board}
@@ -890,7 +1097,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
 
                           {/* <!-- College --> */}
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="candidate_college_name">College Name:<span class="req">*</span></label>
+                            <label htmlFor="candidate_college_name">College Name:<span className="req">*</span></label>
                             <input
                               type="text"
                               placeholder="College Name"
@@ -902,7 +1109,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                             />
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="candidate_special_college">Special College?<span class="req">*</span></label>
+                            <label htmlFor="candidate_special_college">Special College?<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={candidate_special_college}
@@ -918,7 +1125,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               </InputGroup>
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="candidate_college_board">College Board:<span class="req">*</span></label>
+                            <label htmlFor="candidate_college_board">College Board:<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={candidate_college_board}
@@ -935,7 +1142,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                           </div>
                           {/* <!-- University --> */}
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="candidate_university_name">University Name:<span class="req">*</span></label>
+                            <label htmlFor="candidate_university_name">University Name:<span className="req">*</span></label>
                             <input
                               type="text"
                               placeholder="University Name"
@@ -947,7 +1154,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                             />
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="candidate_special_university">Special University?<span class="req">*</span></label>
+                            <label htmlFor="candidate_special_university">Special University?<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={candidate_special_university}
@@ -963,7 +1170,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               </InputGroup>
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="candidate_university_type">University Type:<span class="req">*</span></label>
+                            <label htmlFor="candidate_university_type">University Type:<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={candidate_university_type}
@@ -980,7 +1187,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                           </div>
                           {/* <!-- PHD --> */}
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="candidate_phd_college">PHD College Name:<span class="req">*</span></label>
+                            <label htmlFor="candidate_phd_college">PHD College Name:<span className="req">*</span></label>
                             <input
                               type="text"
                               placeholder="PHD College Name"
@@ -992,7 +1199,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                             />
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="candidate_phd_specialization">PHD Specialization<span class="req">*</span></label>
+                            <label htmlFor="candidate_phd_specialization">PHD Specialization<span className="req">*</span></label>
                             <input
                               type="text"
                               placeholder="Candidate PHD Specialization"
@@ -1004,7 +1211,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                             />
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="candidate_phd_university_type">PHD University Type:<span class="req">*</span></label>
+                            <label htmlFor="candidate_phd_university_type">PHD University Type:<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={candidate_phd_university_type}
@@ -1020,7 +1227,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               </InputGroup>
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="candidate_other_courses">Candidate Other Courses:<span class="req">*</span></label>
+                            <label htmlFor="candidate_other_courses">Candidate Other Courses:<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={candidate_other_courses}
@@ -1053,7 +1260,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                         <div className="form-row">
                           {/* <!-- SKILLS --> */}
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="computer_skills">Computer Skills:<span class="req">*</span></label>
+                            <label htmlFor="computer_skills">Computer Skills:<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={computer_skills}
@@ -1069,7 +1276,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               </InputGroup>
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="typing_speed">Typing Speed:<span class="req">*</span></label>
+                            <label htmlFor="typing_speed">Typing Speed:<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={typing_speed}
@@ -1086,7 +1293,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                           </div>
                           {/* <!-- Employment Details --> */}
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="is_employed">Employed?<span class="req">*</span></label>
+                            <label htmlFor="is_employed">Employed?<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={is_employed}
@@ -1102,7 +1309,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               </InputGroup>
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="last_salary">Last Salary<span class="req">*</span></label>
+                            <label htmlFor="last_salary">Last Salary<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={last_salary}
@@ -1118,7 +1325,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               </InputGroup>
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="years_experience">Years of Experience:<span class="req">*</span></label>
+                            <label htmlFor="years_experience">Years of Experience:<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={years_experience}
@@ -1134,7 +1341,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               </InputGroup>
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="experience1">Experience 1:<span class="req">*</span></label>
+                            <label htmlFor="experience1">Experience 1:<span className="req">*</span></label>
                             <input
                               type="text"
                               placeholder="Experience 1"
@@ -1146,7 +1353,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                             />
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="experience2">Experience 2:<span class="req">*</span></label>
+                            <label htmlFor="experience2">Experience 2:<span className="req">*</span></label>
                             <input
                               type="text"
                               placeholder="Experience 2"
@@ -1173,7 +1380,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                         <div className="form-row">
                           {/* <!-- BANK DETAILS --> */}
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="bank_name">Bank Name:<span class="req">*</span></label>
+                            <label htmlFor="bank_name">Bank Name:<span className="req">*</span></label>
                             <input
                               type="text"
                               placeholder="Bank Name"
@@ -1185,7 +1392,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                             />
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="account_no">Account Number:<span class="req">*</span></label>
+                            <label htmlFor="account_no">Account Number:<span className="req">*</span></label>
                             <input
                               type="text"
                               placeholder="Bank Account Number"
@@ -1197,7 +1404,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                             />
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="branch_name">Branch Name:<span class="req">*</span></label>
+                            <label htmlFor="branch_name">Branch Name:<span className="req">*</span></label>
                             <input
                               type="text"
                               placeholder="Branch Name"
@@ -1209,7 +1416,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                             />
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="ifsc_code">IFSC Code:<span class="req">*</span></label>
+                            <label htmlFor="ifsc_code">IFSC Code:<span className="req">*</span></label>
                             <input
                               type="text"
                               placeholder="IFSC Code"
@@ -1236,7 +1443,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                         <div className="form-row">
                           {/* <!-- DRIVING DETAILS --> */}
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="know_driving">Do you know Driving?<span class="req">*</span></label>
+                            <label htmlFor="know_driving">Do you know Driving?<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={know_driving}
@@ -1252,7 +1459,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               </InputGroup>
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="have_license">Do you have License?<span class="req">*</span></label>
+                            <label htmlFor="have_license">Do you have License?<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={have_license}
@@ -1268,7 +1475,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               </InputGroup>
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="driving_license_no">License Number:<span class="req">*</span></label>
+                            <label htmlFor="driving_license_no">License Number:<span className="req">*</span></label>
                             <input
                               type="text"
                               placeholder="Enter License Number"
@@ -1280,7 +1487,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                             />
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="own_vehicle">Do you own Vehicle?<span class="req">*</span></label>
+                            <label htmlFor="own_vehicle">Do you own Vehicle?<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={own_vehicle}
@@ -1297,7 +1504,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                           </div>
 
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="vehicle_number">Vehicle Number:<span class="req">*</span></label>
+                            <label htmlFor="vehicle_number">Vehicle Number:<span className="req">*</span></label>
                             <input
                               type="text"
                               placeholder="Enter Vehicle Number"
@@ -1310,7 +1517,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                           </div>
                           {/* <!-- HEALTH DETAILS --> */}
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="health_issues">Health Issues:<span class="req">*</span></label>
+                            <label htmlFor="health_issues">Health Issues:<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={health_issues}
@@ -1326,7 +1533,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               </InputGroup>
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="issue_type">Health Issues Type:<span class="req">*</span></label>
+                            <label htmlFor="issue_type">Health Issues Type:<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={issue_type}
@@ -1358,7 +1565,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                         <div className="form-row">
                           {/* <!-- Family Details --> */}
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="no_family_member">Number of Members in Family:<span class="req">*</span></label>
+                            <label htmlFor="no_family_member">Number of Members in Family:<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={no_family_member}
@@ -1374,7 +1581,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               </InputGroup>
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="pwd_family">Anyone PWD?<span class="req">*</span></label>
+                            <label htmlFor="pwd_family">Anyone PWD?<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={pwd_family}
@@ -1390,7 +1597,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               </InputGroup>
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="no_pwd_family_member">No. of PWD Members:<span class="req">*</span></label>
+                            <label htmlFor="no_pwd_family_member">No. of PWD Members:<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={no_pwd_family_member}
@@ -1407,7 +1614,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                           </div>
                           {/* <!-- Individual Family Member Details 1 --> */}
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="member1_name">Name:<span class="req">*</span></label>
+                            <label htmlFor="member1_name">Name:<span className="req">*</span></label>
                             <input
                               type="text"
                               placeholder="Enter Name"
@@ -1418,7 +1625,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                             />
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="member1_relation">Relation?<span class="req">*</span></label>
+                            <label htmlFor="member1_relation">Relation?<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={member1_relation}
@@ -1434,7 +1641,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               </InputGroup>
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="member1_gender">Gender:<span class="req">*</span></label>
+                            <label htmlFor="member1_gender">Gender:<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={member1_gender}
@@ -1452,7 +1659,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                           </div>
 
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="member1_age">Age:<span class="req">*</span></label>
+                            <label htmlFor="member1_age">Age:<span className="req">*</span></label>
                             <input
                               type="number"
                               placeholder="Enter Age"
@@ -1464,7 +1671,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                           </div>
 
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="member1_education">Select Education:<span class="req">*</span></label>
+                            <label htmlFor="member1_education">Select Education:<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={member1_education}
@@ -1481,7 +1688,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               </InputGroup>
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="member1_occupation">Occupation:<span class="req">*</span></label>
+                            <label htmlFor="member1_occupation">Occupation:<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={member1_occupation}
@@ -1498,7 +1705,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               </InputGroup>
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="member1_income">Income:<span class="req">*</span></label>
+                            <label htmlFor="member1_income">Income:<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={member1_income}
@@ -1516,7 +1723,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                           </div>
                           {/* <!-- Individual Family Member Details 2 --> */}
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="member2_name">Name:<span class="req">*</span></label>
+                            <label htmlFor="member2_name">Name:<span className="req">*</span></label>
                             <input
                               type="text"
                               placeholder="Enter Name"
@@ -1527,7 +1734,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                             />
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="member2_relation">Relation?<span class="req">*</span></label>
+                            <label htmlFor="member2_relation">Relation?<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={member2_relation}
@@ -1544,7 +1751,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               </InputGroup>
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="member2_gender">Gender:<span class="req">*</span></label>
+                            <label htmlFor="member2_gender">Gender:<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={member2_gender}
@@ -1562,7 +1769,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                           </div>
 
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="member2_age">Age:<span class="req">*</span></label>
+                            <label htmlFor="member2_age">Age:<span className="req">*</span></label>
                             <input
                               type="number"
                               placeholder="Enter Age"
@@ -1574,7 +1781,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                           </div>
 
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="member2_education">Select Education:<span class="req">*</span></label>
+                            <label htmlFor="member2_education">Select Education:<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={member2_education}
@@ -1591,7 +1798,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               </InputGroup>
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="member2_occupation">Occupation:<span class="req">*</span></label>
+                            <label htmlFor="member2_occupation">Occupation:<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={member2_occupation}
@@ -1608,7 +1815,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               </InputGroup>
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="member2_income">Income:<span class="req">*</span></label>
+                            <label htmlFor="member2_income">Income:<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={member2_income}
@@ -1626,7 +1833,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                           </div>
                           {/* <!-- Individual Family Member Details 3 --> */}
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="member3_name">Name:<span class="req">*</span></label>
+                            <label htmlFor="member3_name">Name:<span className="req">*</span></label>
                             <input
                               type="text"
                               placeholder="Enter Name"
@@ -1637,7 +1844,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                             />
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="member3_relation">Relation?<span class="req">*</span></label>
+                            <label htmlFor="member3_relation">Relation?<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={member3_relation}
@@ -1654,7 +1861,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               </InputGroup>
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="member3_gender">Gender:<span class="req">*</span></label>
+                            <label htmlFor="member3_gender">Gender:<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={member3_gender}
@@ -1672,7 +1879,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                           </div>
 
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="member3_age">Age:<span class="req">*</span></label>
+                            <label htmlFor="member3_age">Age:<span className="req">*</span></label>
                             <input
                               type="number"
                               placeholder="Enter Age"
@@ -1684,7 +1891,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                           </div>
 
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="member3_education">Select Education:<span class="req">*</span></label>
+                            <label htmlFor="member3_education">Select Education:<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={member3_education}
@@ -1701,7 +1908,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               </InputGroup>
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="member3_occupation">Occupation:<span class="req">*</span></label>
+                            <label htmlFor="member3_occupation">Occupation:<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={member3_occupation}
@@ -1718,7 +1925,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               </InputGroup>
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="member3_income">Income:<span class="req">*</span></label>
+                            <label htmlFor="member3_income">Income:<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={member3_income}
@@ -1738,7 +1945,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                           {/* <!-- Individual Family Member Details 4 --> */}
                           {/* <!-- Individual Family Member Details 4 --> */}
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="member4_name">Name:<span class="req">*</span></label>
+                            <label htmlFor="member4_name">Name:<span className="req">*</span></label>
                             <input
                               type="text"
                               placeholder="Enter Name"
@@ -1749,7 +1956,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                             />
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="member4_relation">Relation?<span class="req">*</span></label>
+                            <label htmlFor="member4_relation">Relation?<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={member4_relation}
@@ -1766,7 +1973,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               </InputGroup>
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="member4_gender">Gender:<span class="req">*</span></label>
+                            <label htmlFor="member4_gender">Gender:<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={member4_gender}
@@ -1784,7 +1991,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                           </div>
 
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="member4_age">Age:<span class="req">*</span></label>
+                            <label htmlFor="member4_age">Age:<span className="req">*</span></label>
                             <input
                               type="number"
                               placeholder="Enter Age"
@@ -1796,7 +2003,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                           </div>
 
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="member4_education">Select Education:<span class="req">*</span></label>
+                            <label htmlFor="member4_education">Select Education:<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={member4_education}
@@ -1813,7 +2020,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               </InputGroup>
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="member4_occupation">Occupation:<span class="req">*</span></label>
+                            <label htmlFor="member4_occupation">Occupation:<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={member4_occupation}
@@ -1830,7 +2037,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               </InputGroup>
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="member4_income">Income:<span class="req">*</span></label>
+                            <label htmlFor="member4_income">Income:<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={member4_income}
@@ -1850,7 +2057,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                           {/* <!-- Individual Family Member Details 5 --> */}
                           {/* <!-- Individual Family Member Details 5 --> */}
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="member5_name">Name:<span class="req">*</span></label>
+                            <label htmlFor="member5_name">Name:<span className="req">*</span></label>
                             <input
                               type="text"
                               placeholder="Enter Name"
@@ -1861,7 +2068,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                             />
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="member5_relation">Relation?<span class="req">*</span></label>
+                            <label htmlFor="member5_relation">Relation?<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={member5_relation}
@@ -1878,7 +2085,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               </InputGroup>
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="member5_gender">Gender:<span class="req">*</span></label>
+                            <label htmlFor="member5_gender">Gender:<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={member5_gender}
@@ -1896,7 +2103,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                           </div>
 
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="member5_age">Age:<span class="req">*</span></label>
+                            <label htmlFor="member5_age">Age:<span className="req">*</span></label>
                             <input
                               type="number"
                               placeholder="Enter Age"
@@ -1908,7 +2115,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                           </div>
 
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="member5_education">Select Education:<span class="req">*</span></label>
+                            <label htmlFor="member5_education">Select Education:<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={member5_education}
@@ -1925,7 +2132,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               </InputGroup>
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="member5_occupation">Occupation:<span class="req">*</span></label>
+                            <label htmlFor="member5_occupation">Occupation:<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={member5_occupation}
@@ -1942,7 +2149,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               </InputGroup>
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="member5_income">Income:<span class="req">*</span></label>
+                            <label htmlFor="member5_income">Income:<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={member5_income}
@@ -1961,7 +2168,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
 
                           {/* <!-- Individual Family Member Details 6 --> */}
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="member6_name">Name:<span class="req">*</span></label>
+                            <label htmlFor="member6_name">Name:<span className="req">*</span></label>
                             <input
                               type="text"
                               placeholder="Enter Name"
@@ -1972,7 +2179,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                             />
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="member6_relation">Relation?<span class="req">*</span></label>
+                            <label htmlFor="member6_relation">Relation?<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={member6_relation}
@@ -1989,7 +2196,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               </InputGroup>
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="member6_gender">Gender:<span class="req">*</span></label>
+                            <label htmlFor="member6_gender">Gender:<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={member6_gender}
@@ -2007,7 +2214,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                           </div>
 
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="member6_age">Age:<span class="req">*</span></label>
+                            <label htmlFor="member6_age">Age:<span className="req">*</span></label>
                             <input
                               type="number"
                               placeholder="Enter Age"
@@ -2019,7 +2226,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                           </div>
 
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="member6_education">Select Education:<span class="req">*</span></label>
+                            <label htmlFor="member6_education">Select Education:<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={member6_education}
@@ -2036,7 +2243,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               </InputGroup>
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="member6_occupation">Occupation:<span class="req">*</span></label>
+                            <label htmlFor="member6_occupation">Occupation:<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={member6_occupation}
@@ -2053,7 +2260,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               </InputGroup>
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="member6_income">Income:<span class="req">*</span></label>
+                            <label htmlFor="member6_income">Income:<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={member6_income}
@@ -2085,7 +2292,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                         <div className="form-row">
                           {/* <!-- DISABILITY SPECIFIC INFO --> */}
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="is_disable">Are you a person with Disability?<span class="req">*</span></label>
+                            <label htmlFor="is_disable">Are you a person with Disability?<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={is_disable}
@@ -2102,7 +2309,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               </InputGroup>
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="disable_certificate">If “Yes” do you have Disability Certificate?<span class="req">*</span></label>
+                            <label htmlFor="disable_certificate">If “Yes” do you have Disability Certificate?<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={disable_certificate}
@@ -2119,7 +2326,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               </InputGroup>
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="no_disable_certificate">If “No” reason for not having Disability Certificate:<span class="req">*</span></label>
+                            <label htmlFor="no_disable_certificate">If “No” reason for not having Disability Certificate:<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={no_disable_certificate}
@@ -2137,7 +2344,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                           </div>
 
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="disability_type">Type of Disability?<span class="req">*</span></label>
+                            <label htmlFor="disability_type">Type of Disability?<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={disability_type}
@@ -2154,7 +2361,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               </InputGroup>
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="disability_percent">Percentage of Disability?<span class="req">*</span></label>
+                            <label htmlFor="disability_percent">Percentage of Disability?<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={disability_percent}
@@ -2171,7 +2378,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                               </InputGroup>
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="dependent">Are you a dependent for your day-to-day activities?<span class="req">*</span></label>
+                            <label htmlFor="dependent">Are you a dependent for your day-to-day activities?<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={dependent}
@@ -2189,7 +2396,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                           </div>
                           {/* <!-- Disability Pension Information --> */}
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="disability_pension">Are you availing Disability Pension?<span class="req">*</span></label>
+                            <label htmlFor="disability_pension">Are you availing Disability Pension?<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={disability_pension}
@@ -2207,7 +2414,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                           </div>
 
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="no_disability_pension">If 'No', Select Reason<span class="req">*</span></label>
+                            <label htmlFor="no_disability_pension">If 'No', Select Reason<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={no_disability_pension}
@@ -2226,7 +2433,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
 
                           {/* <!-- Awareness/Utilization of PwD Schemes --> */}
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="availed_schemes_knowledge">Do you have any idea about the following schemes<span class="req">*</span></label>
+                            <label htmlFor="availed_schemes_knowledge">Do you have any idea about the following schemes<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={availed_schemes_knowledge}
@@ -2244,7 +2451,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                           </div>
 
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="availed_schemes">Schemes availed/availing<span class="req">*</span></label>
+                            <label htmlFor="availed_schemes">Schemes availed/availing<span className="req">*</span></label>
                             <InputGroup>
                                 <select className="custom-select" 
                                 value={availed_schemes}
@@ -2275,7 +2482,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                         <div className="form-row">
                           {/* <!-- Government Document Numbers --> */}
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="ration_card_no">Ration Card No:<span class="req">*</span></label>
+                            <label htmlFor="ration_card_no">Ration Card No:<span className="req">*</span></label>
                             <input
                               type="text"
                               placeholder="Enter Ration Card No."
@@ -2287,7 +2494,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                             />
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="voter_id_no">Voter ID:<span class="req">*</span></label>
+                            <label htmlFor="voter_id_no">Voter ID:<span className="req">*</span></label>
                             <input
                               type="text"
                               placeholder="Enter Voter ID"
@@ -2299,7 +2506,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                             />
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="pan_card_no">PAN Card No:<span class="req">*</span></label>
+                            <label htmlFor="pan_card_no">PAN Card No:<span className="req">*</span></label>
                             <input
                               type="text"
                               placeholder="Enter PAN Card No."
@@ -2311,7 +2518,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                             />
                           </div>
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="disability_cert_no">Disability Certificate Number:<span class="req">*</span></label>
+                            <label htmlFor="disability_cert_no">Disability Certificate Number:<span className="req">*</span></label>
                             <input
                               type="text"
                               placeholder="Enter Disability Certificate Number"
@@ -2326,7 +2533,7 @@ const [diploma_memo_no, setDiplomaMemoNo] = useState(null);
                           {/* Add similar modifications for other fields as needed */}
 
                           <div className="col-md-3 mb-2" >
-                            <label htmlFor="marriage_cert_no">Marriage Certificate Number:<span class="req">*</span></label>
+                            <label htmlFor="marriage_cert_no">Marriage Certificate Number:<span className="req">*</span></label>
                             <input
                               type="text"
                               placeholder="Enter Marriage Certificate Number"

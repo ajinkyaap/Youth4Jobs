@@ -50,7 +50,6 @@ const CandidateDetailPage = () => {
               justifyContent: "right"
                 }}>
                 {
-                    loggedInUser["um_role"] == "11" &&
                     <button className= "backButton" onClick={handleBack}
                     style={{
                       margin: "-10px 20px -65px 0px"
@@ -898,6 +897,174 @@ const CandidateDetailPage = () => {
               </div>
               <div className="col-lg">
               {selectedCandidate.member6_occupation}
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg">
+                  <h6>Member6 income : </h6>
+              </div>
+              <div className="col-lg">
+                {selectedCandidate.member6_income}
+              </div>
+                <div className="col-lg">
+                  <h6>Member6 occupation : </h6>
+              </div>
+              <div className="col-lg">
+              {selectedCandidate.member6_occupation}
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg">
+                  <h6>Disable Certificate : </h6>
+              </div>
+              <div className="col-lg">
+                {selectedCandidate.diable_certificate}
+              </div>
+                <div className="col-lg">
+                  <h6>No disable cerf=tificate : </h6>
+              </div>
+              <div className="col-lg">
+              {selectedCandidate.no_disable_certificate}
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg">
+                  <h6>Dependent : </h6>
+              </div>
+              <div className="col-lg">
+                {selectedCandidate.dependent}
+              </div>
+                <div className="col-lg">
+                  <h6> disability Pension : </h6>
+              </div>
+              <div className="col-lg">
+              {selectedCandidate.disability_pension}
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg">
+                  <h6>No Disability Pension : </h6>
+              </div>
+              <div className="col-lg">
+                {selectedCandidate.no_disability_pension}
+              </div>
+                <div className="col-lg">
+                  <h6> Availed schemes knowledge : </h6>
+              </div>
+              <div className="col-lg">
+              {selectedCandidate.availed_schemes_knowledge}
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg">
+                  <h6>Availed Schemes : </h6>
+              </div>
+              <div className="col-lg">
+                {selectedCandidate.availed_schemes}
+              </div>
+                <div className="col-lg">
+                  <h6> Ration Card : </h6>
+              </div>
+              <div className="col-lg">
+              {selectedCandidate.ration_card_no}
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg">
+                  <h6>Voter Id no : </h6>
+              </div>
+              <div className="col-lg">
+                {selectedCandidate.voter_id_no}
+              </div>
+                <div className="col-lg">
+                  <h6> Ration Card : </h6>
+              </div>
+              <div className="col-lg">
+              {selectedCandidate.ration_card_no}
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg">
+                  <h6>Disability Certificate No : </h6>
+              </div>
+              <div className="col-lg">
+                {selectedCandidate.disability_certificate_no}
+              </div>
+                <div className="col-lg">
+                  <h6>SSC Proof No : </h6>
+              </div>
+              <div className="col-lg">
+              {selectedCandidate.ssc_proof_no}
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg">
+                  <h6>SSC Memo No: </h6>
+              </div>
+              <div className="col-lg">
+                {selectedCandidate.ssc_memo_no}
+              </div>
+                <div className="col-lg">
+                  <h6>HSC Memo no : </h6>
+              </div>
+              <div className="col-lg">
+              {selectedCandidate.hsc_memo_no}
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg">
+                  <h6>Grad Memo No: </h6>
+              </div>
+              <div className="col-lg">
+                {selectedCandidate.grad_memo_no}
+              </div>
+                <div className="col-lg">
+                  <h6>Pg Memo no : </h6>
+              </div>
+              <div className="col-lg">
+              {selectedCandidate.pg_memo_no}
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg">
+                  <h6>Phd no: </h6>
+              </div>
+              <div className="col-lg">
+                {selectedCandidate.phd_no}
+              </div>
+                <div className="col-lg">
+                  <h6>Tech Qualification No : </h6>
+              </div>
+              <div className="col-lg">
+              {selectedCandidate.tech_qualification_memo_no}
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg">
+                  <h6>Vocational Memo no : </h6>
+              </div>
+              <div className="col-lg">
+                {selectedCandidate.vocational_memo_no}
+              </div>
+                <div className="col-lg">
+                  <h6>Diploma Memo No  : </h6>
+              </div>
+              <div className="col-lg">
+              {selectedCandidate.diploma_memo_no}
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg">
+                  <h6>Income Certificate No : </h6>
+              </div>
+              <div className="col-lg">
+                {selectedCandidate.income_cert_no}
+              </div>
+                <div className="col-lg">
+                  <h6>Marriage Certificate No  : </h6>
+              </div>
+              <div className="col-lg">
+              {selectedCandidate.marriage_cert_no}
               </div>
             </div>
           </div>

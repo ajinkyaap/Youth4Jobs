@@ -134,7 +134,7 @@ const VolunteerDetailPage = () => {
                                 <div className="col-lg">
                                 <h6>Mobile No : </h6>
                                 </div>
-                                <div className="col-lg">{selectedVolunteer.Volunteers.candidate_mobile}</div>
+                                <div className="col-lg">{selectedVolunteer.Volunteers.um_mobile_no}</div>
                               </div>
                               <div className="row">
 
