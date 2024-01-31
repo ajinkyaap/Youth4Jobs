@@ -3,7 +3,7 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-const db = require("./db");
+// const db = require("./db");
 
 const morgan = require("morgan");
 
@@ -1156,7 +1156,7 @@ app.delete("/api/v1/volunteers/:vol_id", async (req, res) => {
 });
 
 
-const port = process.env.PORT || 3001;
-app.listen(port, () => {
-  console.log(`server is up and listening on port ${port}`);
-});
+// const port = process.env.PORT || 3001;
+// app.listen(port, () => {
+//   console.log(`server is up and listening on port ${port}`);
+// });
