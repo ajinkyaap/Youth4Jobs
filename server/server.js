@@ -1160,3 +1160,5 @@ app.delete("/api/v1/volunteers/:vol_id", async (req, res) => {
 // app.listen(port, () => {
 //   console.log(`server is up and listening on port ${port}`);
 // });
+
+module.exports = app;
