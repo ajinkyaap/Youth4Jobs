@@ -1,13 +1,16 @@
 {
     "version": 2,
-    "routes": [
+    "builds": [
       {
-        "src": "/api/v1/(.*)",
-        "dest": "server.js"
-      },
-      {
-        "src": "/(.*)",
-        "dest": "public/$1"
+        "src": "server.js",
+        "use": "@now/node"
       }
+    ],
+    "routes": [
+      { "src": "/api/v1/userMasters", "dest": "server.js" },
+      { "src": "/api/v1/volunteers", "dest": "server.js" },
+      { "src": "/api/v1/candidates", "dest": "server.js" },
+      { "src": "/api/v1/*", "dest": "server.js" }
     ]
   }
+  
