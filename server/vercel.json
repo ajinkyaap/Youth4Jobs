@@ -1,22 +1,9 @@
 {
+    "version": 2,
     "functions": {
-      "api/**/*.js": {
+      "server.js": {
         "runtime": "vercel-node@2.0.0"
       }
-    },
-    "routes": [
-      {
-        "src": "/api/v1/userMasters",
-        "dest": "server.js"
-      },
-      {
-        "src": "/api/v1/volunteers",
-        "dest": "server.js"
-      },
-      {
-        "src": "/(.*)",
-        "dest": "/server.js"
-      }
-    ]
+    }
   }
   
