@@ -167,7 +167,7 @@ const VolunteerDetailPage = () => {
                               <th scope="col">Mobile</th>
                               <th scope="col">Email</th>
                               <th scope="col">Education Qualification</th>
-                              <th scope="col">Occupation</th>
+                              <th scope="col">Village</th>
                               <th scope="col">Aadhar</th>
                               <th scope="col">Maritial Status</th>
 
@@ -187,7 +187,7 @@ const VolunteerDetailPage = () => {
                                     <td>{candidate.candidate_mobile}</td>
                                     <td>{candidate.candidate_email}</td>
                                     <td>{candidate.candidate_edu_qualification}</td>
-                                    <td>{candidate.candidate_occupation}</td>
+                                    <td>{candidate.candidate_village}</td>
                                     <td>{candidate.candidate_aadhar}</td>
                                     <td>{candidate.candidate_maritial_sts}</td>
 
@@ -223,8 +223,10 @@ const VolunteerDetailPage = () => {
               display:"flex",
               justifyContent: "center"
             }}
-            >
-                    <button onClick={handleAddCandidate}>Add Candidate</button>
+            >{
+              loggedInUser["um_role"] == "12" &&
+              <button onClick={handleAddCandidate}>Add Candidate</button>
+            }
             </div>
             </div>
           </form>
