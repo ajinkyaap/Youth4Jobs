@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js",
-    "dev": "nodemon server.js",
+    "start": "nodemon --openssl-legacy-provider server.js",
+    "dev": "nodemon --openssl-legacy-provider server.js",
     "prestart": "npm install",
     "predev": "npm install",
     "deploy": "npm run prestart && npm start"
